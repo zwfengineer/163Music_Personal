@@ -1,0 +1,67 @@
+{
+	"tabBar": {
+		"list": [{
+				"pagePath": "pages/home/home",
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/videos/videos",
+				"text": "MV"
+			},
+			{
+				"pagePath": "pages/radio/radio",
+				"text": "电台"
+			},
+			{
+				"pagePath": "pages/center/center",
+				"text": "用户"
+			}
+		]
+	},
+	"pages": [{
+			"path": "pages/home/home",
+			"style": {
+				"navigationBarTitleText": "首页",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/videos/videos",
+			"style": {
+				"navigationBarTitleText": "视频",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/center/center",
+			"style": {
+				"navigationBarTitleText": "个人",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/radio/radio",
+			"style": {
+				"navigationBarTitleText": "电台",
+				"enablePullDownRefresh": false
+			}
+
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8",
+		"app-plus": {
+			"background": "#efeff4"
+		}
+	}
+}

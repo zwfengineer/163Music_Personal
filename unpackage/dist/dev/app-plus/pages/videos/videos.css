@@ -1,0 +1,49 @@
+.header {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.header uni-image {
+  width: 30px;
+  height: 25px;
+}
+.tags_container {
+  width: 100%;
+  white-space: nowrap;
+}
+.tags_container .tag {
+  display: inline-block;
+  margin-left: 5px;
+  font-size: 25px;
+}
+.video_list .video_list_item .cover {
+  width: 100%;
+}
+.video_list .video_list_item .video_info {
+  display: flex;
+  flex-direction: column;
+}
+.video_list .video_list_item .video_info .creator {
+  display: flex;
+  align-items: center;
+}
+.video_list .video_list_item .video_info .creator .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.video_list .video_list_item .video_info .creator .comment {
+  margin-left: 180px;
+}
+.video_list .video_list_item .video_info .creator .praised {
+  margin-left: 20px;
+}
+.video_list .video_list_item .video_info .title {
+  padding-left: 15px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
