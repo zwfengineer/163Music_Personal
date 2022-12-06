@@ -18,7 +18,11 @@
 			}
 		]
 	},
-	"pages": [{
+	"pages": [
+		{
+			"path": "pages/init/init"
+		},
+		{
 			"path": "pages/home/home",
 			"style": {
 				"navigationBarTitleText": "首页",

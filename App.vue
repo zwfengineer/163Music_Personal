@@ -11,12 +11,6 @@
 		setup() {
 			const userStore = useUserStore(pinia)
 			const homeStore = useHomeStore(pinia)
-			const videoStore = useVideoStore(pinia)
-			const init = async () => {
-				await homeStore.reqGetBanners()
-				await homeStore.reqGetBalls()
-				await homeStore.reqGetTopList()
-			}
 			const {
 				account
 			} = userStore
@@ -27,9 +21,12 @@
 			},{
 				detached:true
 			})
-			onMounted(()=>{
-				init()
-			})
+			const init = () => {
+				homeStore.reqGetBanners()
+				homeStore.reqGetBalls()
+				homeStore.reqGetTopList()
+			}
+			init()
 		}
 	}
 </script>

@@ -47,6 +47,35 @@ if (uni.restoreGlobal) {
 }
 (function(vue, shared) {
   "use strict";
+  var _export_sfc = (sfc, props) => {
+    const target = sfc.__vccOpts || sfc;
+    for (const [key, val] of props) {
+      target[key] = val;
+    }
+    return target;
+  };
+  const _sfc_main$b = {
+    __name: "init",
+    setup(__props) {
+      uni.switchTab({
+        url: "/pages/home/home"
+      });
+      return (_ctx, _cache) => {
+        return vue.openBlock(), vue.createElementBlock("view");
+      };
+    }
+  };
+  var PagesInitInit = /* @__PURE__ */ _export_sfc(_sfc_main$b, [["__file", "G:/gitee/movementprojectsingle/pages/init/init.vue"]]);
+  function formatAppLog(type, filename, ...args) {
+    if (uni.__log__) {
+      uni.__log__(type, filename, ...args);
+    } else {
+      console[type].apply(console, [...args, filename]);
+    }
+  }
+  function resolveEasycom(component, easycom) {
+    return shared.isString(component) ? easycom : component;
+  }
   var icons = {
     "id": "2852637",
     "name": "uniui\u56FE\u6807\u5E93",
@@ -1218,13 +1247,6 @@ if (uni.restoreGlobal) {
       }
     ]
   };
-  var _export_sfc = (sfc, props) => {
-    const target = sfc.__vccOpts || sfc;
-    for (const [key, val] of props) {
-      target[key] = val;
-    }
-    return target;
-  };
   const getVal$1 = (val) => {
     const reg = /^[0-9]*$/g;
     return typeof val === "number" || reg.test(val) ? val + "px" : val;
@@ -1281,16 +1303,6 @@ if (uni.restoreGlobal) {
     }, null, 6);
   }
   var __easycom_0$2 = /* @__PURE__ */ _export_sfc(_sfc_main$a, [["render", _sfc_render$6], ["__scopeId", "data-v-a2e81f6e"], ["__file", "G:/gitee/movementprojectsingle/uni_modules/uni-icons/components/uni-icons/uni-icons.vue"]]);
-  function formatAppLog(type, filename, ...args) {
-    if (uni.__log__) {
-      uni.__log__(type, filename, ...args);
-    } else {
-      console[type].apply(console, [...args, filename]);
-    }
-  }
-  function resolveEasycom(component, easycom) {
-    return shared.isString(component) ? easycom : component;
-  }
   const _sfc_main$9 = {
     name: "UniStatusBar",
     data() {
@@ -3027,14 +3039,27 @@ This will fail in production.`);
   const pinia = createPinia();
   const _sfc_main$7 = {
     setup() {
-      const homestore = useHomeStore(pinia);
-      const userstore = useUserStore(pinia);
+      const homeStore = useHomeStore(pinia);
+      const userStore = useUserStore(pinia);
       const {
         account
-      } = storeToRefs(userstore);
-      return __spreadProps(__spreadValues({}, storeToRefs(homestore)), {
+      } = storeToRefs(userStore);
+      formatAppLog("log", "at pages/home/home.vue:74", "home setup");
+      vue.onDeactivated(() => {
+        formatAppLog("log", "at pages/home/home.vue:77", "deActivated");
+      });
+      return __spreadProps(__spreadValues({}, storeToRefs(homeStore)), {
         account
       });
+    },
+    onInit: () => {
+      formatAppLog("log", "at pages/home/home.vue:87", "Home  page init");
+    },
+    onLoad: () => {
+      formatAppLog("log", "at pages/home/home.vue:90", "Home page load");
+    },
+    onUnload: () => {
+      formatAppLog("log", "at pages/home/home.vue:93", "Home page unload");
     }
   };
   function _sfc_render$3(_ctx, _cache, $props, $setup, $data, $options) {
@@ -3133,7 +3158,16 @@ This will fail in production.`);
         let result = await request.get("/video/group", {
           id
         });
+        result.datas.forEach(async (item) => {
+          await this.reqGetVideoInfo(item.data.vid, item);
+        });
         this.videos.set(id, result.datas);
+      },
+      async reqGetVideoInfo(id, item) {
+        let result = await request.get("/video/url", {
+          id
+        });
+        item.info = __spreadProps(__spreadValues({}, result.urls[0]), { flag: true });
       },
       async init() {
         await this.reqGetTags();
@@ -3149,10 +3183,39 @@ This will fail in production.`);
         tags
       } = storeToRefs(videoStore);
       const navid = vue.ref();
+      const videoid = vue.ref();
+      const videoContext = vue.reactive({});
+      vue.ref([]);
+      vue.ref([]);
       const changenav = (event) => {
         navid.value = event.currentTarget.dataset.navId;
         if (!videoStore.videos.has(navid.value)) {
           videoStore.reqGetVideo(navid.value);
+        }
+      };
+      const init = async () => {
+        formatAppLog("log", "at pages/videos/videos.vue:73", "Video init");
+        await videoStore.init();
+        navid.value = videoStore.tags[0].id;
+      };
+      const changeVid = (event) => {
+        let vid = event.currentTarget.dataset.vid;
+        if (!videoContext.value) {
+          videoid.value = vid;
+          videoContext.value = uni.createVideoContext(vid);
+          videoContext.value.play();
+        } else {
+          if (vid == videoid.value) {
+            let video = currentVideos.value.find((item) => item.data.vid == vid);
+            video.info.flag ? videoContext.value.pause() : videoContext.value.play();
+            video.info.flag = !video.info.flag;
+          } else {
+            videoContext.value.pause();
+            videoContext.value = null;
+            videoContext.value = uni.createVideoContext(vid);
+            videoContext.value.play();
+            videoid.value = vid;
+          }
         }
       };
       const currentVideos = vue.computed({
@@ -3160,10 +3223,6 @@ This will fail in production.`);
           return videoStore.videos.get(navid.value);
         }
       });
-      const init = async () => {
-        await videoStore.init();
-        navid.value = videoStore.tags[0].id;
-      };
       init();
       return (_ctx, _cache) => {
         return vue.openBlock(), vue.createElementBlock("view", null, [
@@ -3204,11 +3263,21 @@ This will fail in production.`);
             }, [
               (vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList(vue.unref(currentVideos), (video) => {
                 return vue.openBlock(), vue.createElementBlock("view", { class: "video_list_item" }, [
-                  vue.createElementVNode("image", {
+                  video.data.vid == videoid.value ? (vue.openBlock(), vue.createElementBlock("video", {
+                    key: 0,
+                    class: "video",
+                    src: video.info.url,
+                    id: video.data.vid,
+                    "data-vid": video.data.vid,
+                    onClick: changeVid,
+                    autoplay: "true"
+                  }, null, 8, ["src", "id", "data-vid"])) : (vue.openBlock(), vue.createElementBlock("image", {
+                    key: 1,
                     class: "cover",
-                    src: video.data.coverUrl
-                  }, null, 8, ["src"]),
-                  vue.createCommentVNode(' <video class="video" :src="video.data.previewUrl"></video> '),
+                    src: video.data.coverUrl,
+                    "data-vid": video.data.vid,
+                    onClick: changeVid
+                  }, null, 8, ["src", "data-vid"])),
                   vue.createElementVNode("view", { class: "video_info" }, [
                     vue.createElementVNode("view", { class: "title" }, vue.toDisplayString(video.data.title), 1),
                     vue.createElementVNode("view", { class: "creator" }, [
@@ -3217,8 +3286,10 @@ This will fail in production.`);
                         src: video.data.creator.avatarUrl
                       }, null, 8, ["src"]),
                       vue.createElementVNode("text", { class: "username" }, vue.toDisplayString(video.data.creator.nickname), 1),
-                      vue.createElementVNode("text", { class: "comment" }, vue.toDisplayString(video.data.commentCount), 1),
-                      vue.createElementVNode("text", { class: "praised" }, vue.toDisplayString(video.data.praisedCount), 1)
+                      vue.createElementVNode("view", { class: "right" }, [
+                        vue.createElementVNode("text", { class: "comment" }, vue.toDisplayString(video.data.commentCount), 1),
+                        vue.createElementVNode("text", { class: "praised" }, vue.toDisplayString(video.data.praisedCount), 1)
+                      ])
                     ])
                   ])
                 ]);
@@ -3530,6 +3601,7 @@ This will fail in production.`);
     return vue.openBlock(), vue.createElementBlock("view");
   }
   var PagesRadioRadio = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render], ["__file", "G:/gitee/movementprojectsingle/pages/radio/radio.vue"]]);
+  __definePage("pages/init/init", PagesInitInit);
   __definePage("pages/home/home", PagesHomeHome);
   __definePage("pages/videos/videos", PagesVideosVideos);
   __definePage("pages/center/center", PagesCenterCenter);
@@ -3539,12 +3611,6 @@ This will fail in production.`);
     setup() {
       const userStore = useUserStore(pinia);
       const homeStore = useHomeStore(pinia);
-      useVideoStore(pinia);
-      const init = async () => {
-        await homeStore.reqGetBanners();
-        await homeStore.reqGetBalls();
-        await homeStore.reqGetTopList();
-      };
       userStore.$subscribe((mutation, state) => {
         if (state.account.status == 0) {
           homeStore.reqGetRecommendMusic();
@@ -3552,9 +3618,12 @@ This will fail in production.`);
       }, {
         detached: true
       });
-      vue.onMounted(() => {
-        init();
-      });
+      const init = () => {
+        homeStore.reqGetBanners();
+        homeStore.reqGetBalls();
+        homeStore.reqGetTopList();
+      };
+      init();
     }
   };
   var App = /* @__PURE__ */ _export_sfc(_sfc_main, [["__file", "G:/gitee/movementprojectsingle/App.vue"]]);

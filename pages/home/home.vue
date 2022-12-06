@@ -52,7 +52,9 @@
 	import request from "@/util/request.js"
 	import {
 		onMounted,
-		ref
+		onActivated,
+		ref,
+		onDeactivated
 	} from "vue"
 	import useHomeStore from '@/store/home.js'
 	import useUserStore from "@/store/user.js"
@@ -62,19 +64,36 @@
 	import pinia from "../../store";
 	export default {
 		setup() {
-			const homestore = useHomeStore(pinia)
-			const userstore = useUserStore(pinia)
+			const homeStore = useHomeStore(pinia)
+			const userStore = useUserStore(pinia)
 			const {
 				account
-			} = storeToRefs(userstore)
+			} = storeToRefs(userStore)
+			
+			
+			console.log("home setup")
+			
+			onDeactivated(()=>{
+				console.log("deActivated")
+			})
+			
 			return {
-				...storeToRefs(homestore),
+				...storeToRefs(homeStore),
 				account
 			}
+			
+		},
+		onInit: () => {
+			console.log("Home  page init")
+		},
+		onLoad: () => {
+			console.log("Home page load")
+		},
+		onUnload: () => {
+			console.log("Home page unload")
 		}
 	}
 </script>
-
 <style lang="less">
 	.container {
 		padding: 20px;

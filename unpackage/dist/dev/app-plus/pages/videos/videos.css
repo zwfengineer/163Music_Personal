@@ -17,7 +17,13 @@
   margin-left: 5px;
   font-size: 25px;
 }
+.video_list .video_list_item {
+  margin-bottom: 10px;
+}
 .video_list .video_list_item .cover {
+  width: 100%;
+}
+.video_list .video_list_item .video {
   width: 100%;
 }
 .video_list .video_list_item .video_info {
@@ -27,23 +33,30 @@
 .video_list .video_list_item .video_info .creator {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 .video_list .video_list_item .video_info .creator .avatar {
   width: 40px;
   height: 40px;
   border-radius: 50%;
 }
-.video_list .video_list_item .video_info .creator .comment {
-  margin-left: 180px;
+.video_list .video_list_item .video_info .creator .right {
+  position: absolute;
+  right: 0;
 }
-.video_list .video_list_item .video_info .creator .praised {
-  margin-left: 20px;
+.video_list .video_list_item .video_info .creator .right .comment {
+  margin-right: 20px;
+}
+.video_list .video_list_item .video_info .creator .right .praised {
+  margin-right: 20px;
 }
 .video_list .video_list_item .video_info .title {
+  margin-bottom: 10px;
   padding-left: 15px;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: center;
 }

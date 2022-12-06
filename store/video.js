@@ -19,7 +19,16 @@ const useVideoStore = defineStore('video', {
 			let result = await request.get("/video/group", {
 				id
 			})
+			result.datas.forEach( async (item)=>{
+				await this.reqGetVideoInfo(item.data.vid,item)
+			})
 			this.videos.set(id, result.datas)
+		},
+		async reqGetVideoInfo(id,item){
+			let result = await request.get("/video/url",{
+				id
+			})
+			item.info = {...result.urls[0],flag:true}	
 		},
 		async init() {
 			await this.reqGetTags()
