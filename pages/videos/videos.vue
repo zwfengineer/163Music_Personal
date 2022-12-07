@@ -14,12 +14,18 @@
 			</scroll-view>
 			<scroll-view scroll-y="true" class="video_list">
 				<view class="video_list_item" v-for="video in currentVideos">
+
 					<video v-if="video.data.vid == videoid" class="video" :src="video.info.url" :id="video.data.vid"
-						:data-vid="video.data.vid" @click="changeVid" autoplay="true"></video>
+						autoplay="true">
+						<cover-view class="cover_video" :data-vid="video.data.vid" @click="changeVid">
+						</cover-view>
+					</video>
+
+					<!-- <video v-if="video.data.vid==videoid" class="video" :src="video.info.url" :id="video.data.vid" autoplay="true" :data-vid="video.data.vid" @click="changeVid" bindtap="changeVid"></video> -->
 					<image v-else class="cover" :src="video.data.coverUrl" :data-vid="video.data.vid"
 						@click="changeVid"></image>
 					<view class="video_info">
-						<view class="title">
+						<view class="title" @click="titleclick">
 							{{video.data.title}}
 						</view>
 						<view class="creator">
@@ -63,12 +69,14 @@
 	const videoArr = ref([])
 	const timeArr = ref([])
 
-	const changenav = (event) => {
+	const changenav = async (event) => {
 		navid.value = event.currentTarget.dataset.navId
 		if (!videoStore.videos.has(navid.value)) {
-			videoStore.reqGetVideo(navid.value)
+			await videoStore.reqGetVideo(navid.value)
 		}
 	}
+
+
 	const init = async () => {
 		console.log("Video init")
 		await videoStore.init()
@@ -76,6 +84,7 @@
 	}
 	const changeVid = (event) => {
 		let vid = event.currentTarget.dataset.vid
+		console.log(vid)
 		if (!videoContext.value) {
 			videoid.value = vid
 			videoContext.value = uni.createVideoContext(vid)
@@ -95,6 +104,10 @@
 		}
 	}
 
+	const titleclick = async () => {
+		console.log("title click")
+		videoContext.value.pause()
+	}
 
 	const currentVideos = computed({
 		get: () => {
@@ -138,7 +151,13 @@
 			}
 
 			.video {
+				position: relative;
 				width: 100%;
+				.cover_video {
+					height: 85%;
+					width: 100%;
+					position: absolute;
+				}
 			}
 
 			.video_info {

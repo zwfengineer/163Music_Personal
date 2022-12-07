@@ -24,7 +24,13 @@
   width: 100%;
 }
 .video_list .video_list_item .video {
+  position: relative;
   width: 100%;
+}
+.video_list .video_list_item .video .cover_video {
+  height: 85%;
+  width: 100%;
+  position: absolute;
 }
 .video_list .video_list_item .video_info {
   display: flex;

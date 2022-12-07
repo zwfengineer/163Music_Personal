@@ -58,7 +58,16 @@
 			}
 
 		}
-	],
+	    ,{
+            "path" : "component/uniVideo/index/index",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

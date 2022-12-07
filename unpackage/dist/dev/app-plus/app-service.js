@@ -54,7 +54,7 @@ if (uni.restoreGlobal) {
     }
     return target;
   };
-  const _sfc_main$b = {
+  const _sfc_main$c = {
     __name: "init",
     setup(__props) {
       uni.switchTab({
@@ -65,7 +65,7 @@ if (uni.restoreGlobal) {
       };
     }
   };
-  var PagesInitInit = /* @__PURE__ */ _export_sfc(_sfc_main$b, [["__file", "G:/gitee/movementprojectsingle/pages/init/init.vue"]]);
+  var PagesInitInit = /* @__PURE__ */ _export_sfc(_sfc_main$c, [["__file", "G:/gitee/movementprojectsingle/pages/init/init.vue"]]);
   function formatAppLog(type, filename, ...args) {
     if (uni.__log__) {
       uni.__log__(type, filename, ...args);
@@ -1251,7 +1251,7 @@ if (uni.restoreGlobal) {
     const reg = /^[0-9]*$/g;
     return typeof val === "number" || reg.test(val) ? val + "px" : val;
   };
-  const _sfc_main$a = {
+  const _sfc_main$b = {
     name: "UniIcons",
     emits: ["click"],
     props: {
@@ -1302,8 +1302,8 @@ if (uni.restoreGlobal) {
       onClick: _cache[0] || (_cache[0] = (...args) => $options._onClick && $options._onClick(...args))
     }, null, 6);
   }
-  var __easycom_0$2 = /* @__PURE__ */ _export_sfc(_sfc_main$a, [["render", _sfc_render$6], ["__scopeId", "data-v-a2e81f6e"], ["__file", "G:/gitee/movementprojectsingle/uni_modules/uni-icons/components/uni-icons/uni-icons.vue"]]);
-  const _sfc_main$9 = {
+  var __easycom_0$2 = /* @__PURE__ */ _export_sfc(_sfc_main$b, [["render", _sfc_render$6], ["__scopeId", "data-v-a2e81f6e"], ["__file", "G:/gitee/movementprojectsingle/uni_modules/uni-icons/components/uni-icons/uni-icons.vue"]]);
+  const _sfc_main$a = {
     name: "UniStatusBar",
     data() {
       return {
@@ -1322,9 +1322,9 @@ if (uni.restoreGlobal) {
       vue.renderSlot(_ctx.$slots, "default", {}, void 0, true)
     ], 4);
   }
-  var statusBar = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["render", _sfc_render$5], ["__scopeId", "data-v-f9a87a8e"], ["__file", "G:/gitee/movementprojectsingle/uni_modules/uni-nav-bar/components/uni-nav-bar/uni-status-bar.vue"]]);
+  var statusBar = /* @__PURE__ */ _export_sfc(_sfc_main$a, [["render", _sfc_render$5], ["__scopeId", "data-v-f9a87a8e"], ["__file", "G:/gitee/movementprojectsingle/uni_modules/uni-nav-bar/components/uni-nav-bar/uni-status-bar.vue"]]);
   const getVal = (val) => typeof val === "number" ? val + "px" : val;
-  const _sfc_main$8 = {
+  const _sfc_main$9 = {
     name: "UniNavBar",
     components: {
       statusBar
@@ -1539,7 +1539,7 @@ if (uni.restoreGlobal) {
       ])) : vue.createCommentVNode("v-if", true)
     ], 2);
   }
-  var __easycom_0$1 = /* @__PURE__ */ _export_sfc(_sfc_main$8, [["render", _sfc_render$4], ["__scopeId", "data-v-6bda1a90"], ["__file", "G:/gitee/movementprojectsingle/uni_modules/uni-nav-bar/components/uni-nav-bar/uni-nav-bar.vue"]]);
+  var __easycom_0$1 = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["render", _sfc_render$4], ["__scopeId", "data-v-6bda1a90"], ["__file", "G:/gitee/movementprojectsingle/uni_modules/uni-nav-bar/components/uni-nav-bar/uni-nav-bar.vue"]]);
   let baseUrl = "";
   {
     baseUrl = "http://192.168.10.1:4000";
@@ -3037,7 +3037,7 @@ This will fail in production.`);
     }
   });
   const pinia = createPinia();
-  const _sfc_main$7 = {
+  const _sfc_main$8 = {
     setup() {
       const homeStore = useHomeStore(pinia);
       const userStore = useUserStore(pinia);
@@ -3141,7 +3141,7 @@ This will fail in production.`);
       ])
     ]);
   }
-  var PagesHomeHome = /* @__PURE__ */ _export_sfc(_sfc_main$7, [["render", _sfc_render$3], ["__file", "G:/gitee/movementprojectsingle/pages/home/home.vue"]]);
+  var PagesHomeHome = /* @__PURE__ */ _export_sfc(_sfc_main$8, [["render", _sfc_render$3], ["__file", "G:/gitee/movementprojectsingle/pages/home/home.vue"]]);
   const useVideoStore = defineStore("video", {
     state() {
       return {
@@ -3175,7 +3175,7 @@ This will fail in production.`);
       }
     }
   });
-  const _sfc_main$6 = {
+  const _sfc_main$7 = {
     __name: "videos",
     setup(__props) {
       const videoStore = useVideoStore(pinia);
@@ -3187,19 +3187,20 @@ This will fail in production.`);
       const videoContext = vue.reactive({});
       vue.ref([]);
       vue.ref([]);
-      const changenav = (event) => {
+      const changenav = async (event) => {
         navid.value = event.currentTarget.dataset.navId;
         if (!videoStore.videos.has(navid.value)) {
-          videoStore.reqGetVideo(navid.value);
+          await videoStore.reqGetVideo(navid.value);
         }
       };
       const init = async () => {
-        formatAppLog("log", "at pages/videos/videos.vue:73", "Video init");
+        formatAppLog("log", "at pages/videos/videos.vue:81", "Video init");
         await videoStore.init();
         navid.value = videoStore.tags[0].id;
       };
       const changeVid = (event) => {
         let vid = event.currentTarget.dataset.vid;
+        formatAppLog("log", "at pages/videos/videos.vue:87", vid);
         if (!videoContext.value) {
           videoid.value = vid;
           videoContext.value = uni.createVideoContext(vid);
@@ -3217,6 +3218,10 @@ This will fail in production.`);
             videoid.value = vid;
           }
         }
+      };
+      const titleclick = async () => {
+        formatAppLog("log", "at pages/videos/videos.vue:108", "title click");
+        videoContext.value.pause();
       };
       const currentVideos = vue.computed({
         get: () => {
@@ -3268,18 +3273,27 @@ This will fail in production.`);
                     class: "video",
                     src: video.info.url,
                     id: video.data.vid,
-                    "data-vid": video.data.vid,
-                    onClick: changeVid,
                     autoplay: "true"
-                  }, null, 8, ["src", "id", "data-vid"])) : (vue.openBlock(), vue.createElementBlock("image", {
-                    key: 1,
-                    class: "cover",
-                    src: video.data.coverUrl,
-                    "data-vid": video.data.vid,
-                    onClick: changeVid
-                  }, null, 8, ["src", "data-vid"])),
+                  }, [
+                    vue.createElementVNode("cover-view", {
+                      class: "cover_video",
+                      "data-vid": video.data.vid,
+                      onClick: changeVid
+                    }, null, 8, ["data-vid"])
+                  ], 8, ["src", "id"])) : (vue.openBlock(), vue.createElementBlock(vue.Fragment, { key: 1 }, [
+                    vue.createCommentVNode(' <video v-if="video.data.vid==videoid" class="video" :src="video.info.url" :id="video.data.vid" autoplay="true" :data-vid="video.data.vid" @click="changeVid" bindtap="changeVid"></video> '),
+                    vue.createElementVNode("image", {
+                      class: "cover",
+                      src: video.data.coverUrl,
+                      "data-vid": video.data.vid,
+                      onClick: changeVid
+                    }, null, 8, ["src", "data-vid"])
+                  ], 2112)),
                   vue.createElementVNode("view", { class: "video_info" }, [
-                    vue.createElementVNode("view", { class: "title" }, vue.toDisplayString(video.data.title), 1),
+                    vue.createElementVNode("view", {
+                      class: "title",
+                      onClick: titleclick
+                    }, vue.toDisplayString(video.data.title), 1),
                     vue.createElementVNode("view", { class: "creator" }, [
                       vue.createElementVNode("image", {
                         class: "avatar",
@@ -3300,9 +3314,9 @@ This will fail in production.`);
       };
     }
   };
-  var PagesVideosVideos = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["__file", "G:/gitee/movementprojectsingle/pages/videos/videos.vue"]]);
+  var PagesVideosVideos = /* @__PURE__ */ _export_sfc(_sfc_main$7, [["__file", "G:/gitee/movementprojectsingle/pages/videos/videos.vue"]]);
   const ComponentClass$1 = "uni-col";
-  const _sfc_main$5 = {
+  const _sfc_main$6 = {
     name: "uniCol",
     props: {
       span: {
@@ -3413,10 +3427,10 @@ This will fail in production.`);
       vue.renderSlot(_ctx.$slots, "default", {}, void 0, true)
     ], 6);
   }
-  var __easycom_0 = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$2], ["__scopeId", "data-v-fff79656"], ["__file", "G:/gitee/movementprojectsingle/uni_modules/uni-row/components/uni-col/uni-col.vue"]]);
+  var __easycom_0 = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["render", _sfc_render$2], ["__scopeId", "data-v-fff79656"], ["__file", "G:/gitee/movementprojectsingle/uni_modules/uni-row/components/uni-col/uni-col.vue"]]);
   const ComponentClass = "uni-row";
   const modifierSeparator = "--";
-  const _sfc_main$4 = {
+  const _sfc_main$5 = {
     name: "uniRow",
     componentName: "uniRow",
     props: {
@@ -3466,8 +3480,8 @@ This will fail in production.`);
       vue.renderSlot(_ctx.$slots, "default", {}, void 0, true)
     ], 6);
   }
-  var __easycom_1 = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["render", _sfc_render$1], ["__scopeId", "data-v-1d993189"], ["__file", "G:/gitee/movementprojectsingle/uni_modules/uni-row/components/uni-row/uni-row.vue"]]);
-  const _sfc_main$3 = {
+  var __easycom_1 = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$1], ["__scopeId", "data-v-1d993189"], ["__file", "G:/gitee/movementprojectsingle/uni_modules/uni-row/components/uni-row/uni-row.vue"]]);
+  const _sfc_main$4 = {
     __name: "center",
     setup(__props) {
       const userStore = useUserStore(pinia);
@@ -3511,8 +3525,8 @@ This will fail in production.`);
       };
     }
   };
-  var PagesCenterCenter = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__file", "G:/gitee/movementprojectsingle/pages/center/center.vue"]]);
-  const _sfc_main$2 = {
+  var PagesCenterCenter = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["__file", "G:/gitee/movementprojectsingle/pages/center/center.vue"]]);
+  const _sfc_main$3 = {
     __name: "login",
     setup(__props) {
       const phone = vue.ref("15132892786");
@@ -3590,8 +3604,8 @@ This will fail in production.`);
       };
     }
   };
-  var PagesLoginLogin = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["__file", "G:/gitee/movementprojectsingle/pages/login/login.vue"]]);
-  const _sfc_main$1 = {
+  var PagesLoginLogin = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__file", "G:/gitee/movementprojectsingle/pages/login/login.vue"]]);
+  const _sfc_main$2 = {
     data() {
       return {};
     },
@@ -3600,13 +3614,26 @@ This will fail in production.`);
   function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     return vue.openBlock(), vue.createElementBlock("view");
   }
-  var PagesRadioRadio = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render], ["__file", "G:/gitee/movementprojectsingle/pages/radio/radio.vue"]]);
+  var PagesRadioRadio = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["render", _sfc_render], ["__file", "G:/gitee/movementprojectsingle/pages/radio/radio.vue"]]);
+  const _sfc_main$1 = {
+    __name: "index",
+    props: ["src", "click"],
+    setup(__props) {
+      return (_ctx, _cache) => {
+        return vue.openBlock(), vue.createElementBlock("view", null, [
+          vue.createElementVNode("video", { src: __props.src }, null, 8, ["src"])
+        ]);
+      };
+    }
+  };
+  var ComponentUniVideoIndexIndex = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__file", "G:/gitee/movementprojectsingle/component/uniVideo/index/index.vue"]]);
   __definePage("pages/init/init", PagesInitInit);
   __definePage("pages/home/home", PagesHomeHome);
   __definePage("pages/videos/videos", PagesVideosVideos);
   __definePage("pages/center/center", PagesCenterCenter);
   __definePage("pages/login/login", PagesLoginLogin);
   __definePage("pages/radio/radio", PagesRadioRadio);
+  __definePage("component/uniVideo/index/index", ComponentUniVideoIndexIndex);
   const _sfc_main = {
     setup() {
       const userStore = useUserStore(pinia);
