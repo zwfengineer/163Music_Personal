@@ -5,7 +5,7 @@
 				"text": "首页"
 			},
 			{
-				"pagePath": "pages/videos/videos",
+				"pagePath": "pages/videos/videoslist",
 				"text": "MV"
 			},
 			{
@@ -30,7 +30,7 @@
 			}
 		},
 		{
-			"path": "pages/videos/videos",
+			"path": "pages/videos/videoslist",
 			"style": {
 				"navigationBarTitleText": "视频",
 				"enablePullDownRefresh": false
@@ -58,15 +58,6 @@
 			}
 
 		}
-	    ,{
-            "path" : "component/uniVideo/index/index",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

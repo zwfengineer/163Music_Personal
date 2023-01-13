@@ -22,15 +22,19 @@
 		ref
 	} from "vue";
 	const userStore = useUserStore(pinia)
+	const pages = getCurrentPages()
+	const page = pages.pop().$page
 	const {
 		account,
 		profile
 	} = storeToRefs(userStore)
 	const tologin = () => {
+		let path = encodeURI(page.fullPath)
+		console.log(page,page.fullPath)
 		uni.navigateTo({
-			url: "/pages/login/login"
+			url: `/pages/login/login?redirect=${path}`,
 		})
-
+		
 	}
 </script>
 

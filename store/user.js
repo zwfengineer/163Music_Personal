@@ -15,17 +15,23 @@ const useUserStore = defineStore('user', {
 	},
 	actions: {
 		async init() {
-			await this.reqGetStatus()
-			if (this.account.status == -10) {
-				uni.navigateTo({
-					url: '/pages/login/login',
-					success: res => {},
-					fail: (err) => {
-						console.log(err)
-					},
-					complete: () => {}
-				});
+			try {
+				await this.reqGetStatus()
+			} catch (err) {
+				console.log(err)
+			} finally {
+				if (this.account.status == -10) {
+					uni.navigateTo({
+						url: `/pages/login/login?redirect=${decodeURI("/pages/videos/videoslist")}`,
+						success: res => {},
+						fail: (err) => {
+							console.log(err)
+						},
+						complete: () => {}
+					});
+				}	
 			}
+
 		},
 		async reqLogin(data) {
 			let {

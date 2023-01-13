@@ -35,22 +35,28 @@
 		ref
 	} from "vue";
 	import pinia from "../../store";
-
-
 	const phone = ref('15132892786')
 	const password = ref('S9uksLYaAZp83Kb')
 	const userStore = useUserStore(pinia)
+	const pages = getCurrentPages()
+	const page = pages.pop().$page
 	const login = async () => {
-		// await userStore.reqLogin({
-		// 	phone: phone.value,
-		// 	password: password.value
-		// })
-		await userStore.reqGetStatus()
-		back()
+		try {
+			await userStore.reqLogin({
+				phone: phone.value,
+				password: password.value
+			})
+		} catch (e) {
+			alert(e)
+		} finally {
+			back()
+		}
+		// await userStore.reqGetStatus()
 	}
 	const back = () => {
-		uni.navigateBack({
-			detail: 1
+		let path = decodeURI(page.options.redirect)
+		uni.switchTab({
+			url:path
 		});
 	}
 </script>

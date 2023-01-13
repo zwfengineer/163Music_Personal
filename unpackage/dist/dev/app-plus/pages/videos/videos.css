@@ -17,6 +17,10 @@
   margin-left: 5px;
   font-size: 25px;
 }
+.video_list {
+  height: 90%;
+  margin-bottom: 10px;
+}
 .video_list .video_list_item {
   margin-bottom: 10px;
 }
@@ -24,7 +28,6 @@
   width: 100%;
 }
 .video_list .video_list_item .video {
-  position: relative;
   width: 100%;
 }
 .video_list .video_list_item .video .cover_video {
@@ -35,6 +38,16 @@
 .video_list .video_list_item .video_info {
   display: flex;
   flex-direction: column;
+}
+.video_list .video_list_item .video_info .title {
+  margin-bottom: 10px;
+  padding-left: 15px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
 }
 .video_list .video_list_item .video_info .creator {
   display: flex;
@@ -56,13 +69,29 @@
 .video_list .video_list_item .video_info .creator .right .praised {
   margin-right: 20px;
 }
-.video_list .video_list_item .video_info .title {
-  margin-bottom: 10px;
-  padding-left: 15px;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
+.video_list .video_list_item .video_info .creator_box .creator {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.video_list .video_list_item .video_info .creator_box .creator .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.video_list .video_list_item .video_info .creator_box .creator .right {
+  position: absolute;
+  right: 0;
+}
+.video_list .video_list_item .video_info .creator_box .creator .right .comment {
+  margin-right: 20px;
+}
+.video_list .video_list_item .video_info .creator_box .creator .right .praised {
+  margin-right: 20px;
+}
+.video_container {
+  height: 100%;
+  width: 100%;
+  position: absolute;
   overflow: hidden;
-  text-overflow: ellipsis;
-  text-align: center;
 }

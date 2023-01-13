@@ -1,36 +1,6 @@
 <script>
-	import pinia from "@/store/index.js"
-	import useUserStore from "@/store/user.js"
-	import useHomeStore from "@/store/home.js"
-	import useVideoStore from "@/store/video.js"
-	import {
-		storeToRefs
-	} from "pinia"
-	import {onMounted, watch} from "vue"
-	export default {
-		setup() {
-			const userStore = useUserStore(pinia)
-			const homeStore = useHomeStore(pinia)
-			const {
-				account
-			} = userStore
-			userStore.$subscribe((mutation,state)=>{
-				if(state.account.status == 0){
-					homeStore.reqGetRecommendMusic()
-				}
-			},{
-				detached:true
-			})
-			const init = () => {
-				homeStore.reqGetBanners()
-				homeStore.reqGetBalls()
-				homeStore.reqGetTopList()
-			}
-			init()
-		}
-	}
+	console.log("app start")
 </script>
-
 <style lang="scss">
 	/*每个页面公共css */
 	@import '@/uni_modules/uni-scss/index.scss';

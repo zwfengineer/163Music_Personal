@@ -36,7 +36,13 @@ const useHomeStore = defineStore('home', {
 		},
 		async reqGetTopList() {
 			let res = await request.get('/toplist')
-			this.toplist = res.list
+			this.toplist = res.list.filter((item,key)=>{
+				if(key>8){
+					return false
+				}else{
+					return true
+				}
+			})
 			console.log(res)
 			this.toplist.forEach((item) => {
 				this.reqGetSongs(item)

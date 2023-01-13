@@ -6,7 +6,7 @@ if(process.env.NODE_ENV === 'development'){
     baseUrl = "/api"
 // #endif
 // #ifdef APP-PLUS ||MP
-    baseUrl = "http://192.168.10.1:4000"
+    baseUrl = "http://192.168.1.102:4000"
 // #endif
 }else{
     baseUrl = ""

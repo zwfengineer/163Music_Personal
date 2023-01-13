@@ -48,7 +48,7 @@
 	</view>
 </template>
 
-<script>
+<script setup>
 	import request from "@/util/request.js"
 	import {
 		onMounted,
@@ -62,37 +62,23 @@
 		storeToRefs
 	} from "pinia"
 	import pinia from "../../store";
-	export default {
-		setup() {
-			const homeStore = useHomeStore(pinia)
-			const userStore = useUserStore(pinia)
-			const {
-				account
-			} = storeToRefs(userStore)
-			
-			
-			console.log("home setup")
-			
-			onDeactivated(()=>{
-				console.log("deActivated")
-			})
-			
-			return {
-				...storeToRefs(homeStore),
-				account
-			}
-			
-		},
-		onInit: () => {
-			console.log("Home  page init")
-		},
-		onLoad: () => {
-			console.log("Home page load")
-		},
-		onUnload: () => {
-			console.log("Home page unload")
-		}
+	const homeStore = useHomeStore(pinia)
+	const userStore = useUserStore(pinia)
+	const {
+		account
+	} = storeToRefs(userStore)
+	const {
+		recommendMusic,
+		banners,
+		balls,
+		toplist
+	} = storeToRefs(homeStore)
+	const init = async () => {
+		homeStore.reqGetBanners()
+		homeStore.reqGetBalls()
+		homeStore.reqGetTopList()
 	}
+	init()
 </script>
 <style lang="less">
 	.container {
