@@ -14,7 +14,7 @@ const useUserStore = defineStore('user', {
 		}
 	},
 	actions: {
-		async init() {
+		async init(path) {
 			try {
 				await this.reqGetStatus()
 			} catch (err) {
@@ -22,7 +22,7 @@ const useUserStore = defineStore('user', {
 			} finally {
 				if (this.account.status == -10) {
 					uni.navigateTo({
-						url: `/pages/login/login?redirect=${decodeURI("/pages/videos/videoslist")}`,
+						url: `/pages/login/login?redirect=${decodeURI(path)}`,
 						success: res => {},
 						fail: (err) => {
 							console.log(err)
@@ -52,6 +52,7 @@ const useUserStore = defineStore('user', {
 			let res = await request.get('/login/status')
 			this.account = res.data.account
 			if (res.data.account.status == 0) {
+				this.account = res.data.account
 				this.profile = res.data.profile
 			}
 		},

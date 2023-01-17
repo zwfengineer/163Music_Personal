@@ -38,7 +38,7 @@ if (uni.restoreGlobal) {
     }
     return target;
   };
-  const _sfc_main$b = {
+  const _sfc_main$c = {
     __name: "init",
     setup(__props) {
       uni.switchTab({
@@ -49,7 +49,7 @@ if (uni.restoreGlobal) {
       };
     }
   };
-  const PagesInitInit = /* @__PURE__ */ _export_sfc(_sfc_main$b, [["__file", "G:/gitee/movementprojectsingle/pages/init/init.vue"]]);
+  const PagesInitInit = /* @__PURE__ */ _export_sfc(_sfc_main$c, [["__file", "G:/gitee/movementprojectsingle/pages/init/init.vue"]]);
   const icons = {
     "id": "2852637",
     "name": "uniui\u56FE\u6807\u5E93",
@@ -1225,7 +1225,7 @@ if (uni.restoreGlobal) {
     const reg = /^[0-9]*$/g;
     return typeof val === "number" || reg.test(val) ? val + "px" : val;
   };
-  const _sfc_main$a = {
+  const _sfc_main$b = {
     name: "UniIcons",
     emits: ["click"],
     props: {
@@ -1276,7 +1276,7 @@ if (uni.restoreGlobal) {
       onClick: _cache[0] || (_cache[0] = (...args) => $options._onClick && $options._onClick(...args))
     }, null, 6);
   }
-  const __easycom_0$2 = /* @__PURE__ */ _export_sfc(_sfc_main$a, [["render", _sfc_render$5], ["__scopeId", "data-v-d31e1c47"], ["__file", "G:/gitee/movementprojectsingle/uni_modules/uni-icons/components/uni-icons/uni-icons.vue"]]);
+  const __easycom_0$2 = /* @__PURE__ */ _export_sfc(_sfc_main$b, [["render", _sfc_render$5], ["__scopeId", "data-v-d31e1c47"], ["__file", "G:/gitee/movementprojectsingle/uni_modules/uni-icons/components/uni-icons/uni-icons.vue"]]);
   function formatAppLog(type, filename, ...args) {
     if (uni.__log__) {
       uni.__log__(type, filename, ...args);
@@ -1287,7 +1287,7 @@ if (uni.restoreGlobal) {
   function resolveEasycom(component, easycom) {
     return shared.isString(component) ? easycom : component;
   }
-  const _sfc_main$9 = {
+  const _sfc_main$a = {
     name: "UniStatusBar",
     data() {
       return {
@@ -1306,9 +1306,9 @@ if (uni.restoreGlobal) {
       vue.renderSlot(_ctx.$slots, "default", {}, void 0, true)
     ], 4);
   }
-  const statusBar = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["render", _sfc_render$4], ["__scopeId", "data-v-7920e3e0"], ["__file", "G:/gitee/movementprojectsingle/uni_modules/uni-nav-bar/components/uni-nav-bar/uni-status-bar.vue"]]);
+  const statusBar = /* @__PURE__ */ _export_sfc(_sfc_main$a, [["render", _sfc_render$4], ["__scopeId", "data-v-7920e3e0"], ["__file", "G:/gitee/movementprojectsingle/uni_modules/uni-nav-bar/components/uni-nav-bar/uni-status-bar.vue"]]);
   const getVal = (val) => typeof val === "number" ? val + "px" : val;
-  const _sfc_main$8 = {
+  const _sfc_main$9 = {
     name: "UniNavBar",
     components: {
       statusBar
@@ -1523,7 +1523,7 @@ if (uni.restoreGlobal) {
       ])) : vue.createCommentVNode("v-if", true)
     ], 2);
   }
-  const __easycom_0$1 = /* @__PURE__ */ _export_sfc(_sfc_main$8, [["render", _sfc_render$3], ["__scopeId", "data-v-26544265"], ["__file", "G:/gitee/movementprojectsingle/uni_modules/uni-nav-bar/components/uni-nav-bar/uni-nav-bar.vue"]]);
+  const __easycom_0$1 = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["render", _sfc_render$3], ["__scopeId", "data-v-26544265"], ["__file", "G:/gitee/movementprojectsingle/uni_modules/uni-nav-bar/components/uni-nav-bar/uni-nav-bar.vue"]]);
   let baseUrl = "";
   {
     baseUrl = "http://192.168.2.68:4000";
@@ -3024,7 +3024,7 @@ This will fail in production.`);
       };
     },
     actions: {
-      async init() {
+      async init(path) {
         try {
           await this.reqGetStatus();
         } catch (err) {
@@ -3032,7 +3032,7 @@ This will fail in production.`);
         } finally {
           if (this.account.status == -10) {
             uni.navigateTo({
-              url: `/pages/login/login?redirect=${decodeURI("/pages/videos/videoslist")}`,
+              url: `/pages/login/login?redirect=${decodeURI(path)}`,
               success: (res) => {
               },
               fail: (err) => {
@@ -3063,6 +3063,7 @@ This will fail in production.`);
         let res = await request.get("/login/status");
         this.account = res.data.account;
         if (res.data.account.status == 0) {
+          this.account = res.data.account;
           this.profile = res.data.profile;
         }
       },
@@ -3077,7 +3078,7 @@ This will fail in production.`);
     }
   });
   const pinia = createPinia();
-  const _sfc_main$7 = {
+  const _sfc_main$8 = {
     __name: "home",
     setup(__props) {
       const homeStore = useHomeStore(pinia);
@@ -3178,7 +3179,7 @@ This will fail in production.`);
       };
     }
   };
-  const PagesHomeHome = /* @__PURE__ */ _export_sfc(_sfc_main$7, [["__file", "G:/gitee/movementprojectsingle/pages/home/home.vue"]]);
+  const PagesHomeHome = /* @__PURE__ */ _export_sfc(_sfc_main$8, [["__file", "G:/gitee/movementprojectsingle/pages/home/home.vue"]]);
   const useVideoStore = defineStore("video", {
     state() {
       return {
@@ -3229,6 +3230,31 @@ This will fail in production.`);
       }
     }
   });
+  const block0 = (Comp) => {
+    (Comp.$renderjs || (Comp.$renderjs = [])).push("videoContainer");
+    (Comp.$renderjsModules || (Comp.$renderjsModules = {}))["videoContainer"] = "c52744d6";
+  };
+  const _sfc_main$7 = {
+    __name: "CusVideo",
+    props: ["controls", "id", "key", "src"],
+    emits: ["timeupdate", "ended"],
+    setup(__props, { emit }) {
+      const props = __props;
+      const option = props;
+      return (_ctx, _cache) => {
+        return vue.openBlock(), vue.createElementBlock("view", { class: "container" }, [
+          vue.createElementVNode("view", {
+            class: "videoContainer",
+            prop: vue.unref(option),
+            "change:prop": _ctx.videoContainer.update
+          }, null, 8, ["prop", "change:prop"])
+        ]);
+      };
+    }
+  };
+  if (typeof block0 === "function")
+    block0(_sfc_main$7);
+  const CusVideo = /* @__PURE__ */ _export_sfc(_sfc_main$7, [["__file", "G:/gitee/movementprojectsingle/pages/videos/CusVideo.vue"]]);
   const _sfc_main$6 = {
     __name: "videoslist",
     setup(__props) {
@@ -3243,8 +3269,10 @@ This will fail in production.`);
       vue.ref([]);
       const timeArr = vue.ref([]);
       const refreshflag = vue.ref(true);
+      const Pages = getCurrentPages();
+      const page = Pages[Pages.length - 1];
       const init = async () => {
-        await userStore.init();
+        await userStore.init(page.fullPath);
         await videoStore.init();
         navid.value = videoStore.tags[0].id;
       };
@@ -3289,18 +3317,18 @@ This will fail in production.`);
         }
       };
       const titleclick = async () => {
-        formatAppLog("log", "at pages/videos/videoslist.vue:164", "title click");
+        formatAppLog("log", "at pages/videos/videoslist.vue:168", "title click");
         videoContext.value.pause();
       };
       const VideoEnd = (event) => {
-        let vid = event.currentTarget.dataset.vid;
+        let vid = event.vid;
         timeArr.value.find((item) => item.vid == vid);
         videoContext.value.seek(0);
         videoContext.value.play();
       };
       const TimeUpdate = (event) => {
-        let vid = event.currentTarget.dataset.vid;
-        let time = event.detail.currentTime;
+        let vid = event.vid;
+        let time = event.currentTime;
         let records = timeArr.value.find((item) => item.vid == vid);
         if (records) {
           records.time = time;
@@ -3312,7 +3340,7 @@ This will fail in production.`);
         }
       };
       const refreshvideo = async () => {
-        formatAppLog("log", "at pages/videos/videoslist.vue:193", "refreshvideo");
+        formatAppLog("log", "at pages/videos/videoslist.vue:197", "refreshvideo");
         refreshflag.value = true;
         videoid.value = null;
         if (videoContext.value) {
@@ -3378,7 +3406,7 @@ This will fail in production.`);
               (vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList(vue.unref(currentVideos), (video) => {
                 return vue.openBlock(), vue.createElementBlock("view", { class: "video_list_item" }, [
                   video.type == 1 ? (vue.openBlock(), vue.createElementBlock("view", { key: 0 }, [
-                    video.info ? vue.withDirectives((vue.openBlock(), vue.createElementBlock("video", {
+                    video.info ? vue.withDirectives((vue.openBlock(), vue.createBlock(CusVideo, {
                       class: "video",
                       src: video.info.url,
                       controls: true,
@@ -3387,16 +3415,19 @@ This will fail in production.`);
                       onTimeupdate: TimeUpdate,
                       onEnded: VideoEnd,
                       key: video.data.vid
-                    }, [
-                      vue.createElementVNode("cover-view", {
-                        class: "cover_video",
-                        "data-vid": video.data.vid,
-                        onClick: changeVid
-                      }, null, 8, ["data-vid"])
-                    ], 40, ["src", "id", "data-vid"])), [
+                    }, {
+                      default: vue.withCtx(() => [
+                        vue.createElementVNode("cover-view", {
+                          class: "cover_video",
+                          "data-vid": video.data.vid,
+                          onClick: changeVid
+                        }, null, 8, ["data-vid"])
+                      ]),
+                      _: 2
+                    }, 1032, ["src", "id", "data-vid"])), [
                       [vue.vShow, video.data.vid == videoid.value]
                     ]) : vue.createCommentVNode("v-if", true),
-                    vue.createCommentVNode(' <video v-if="video.data.vid==videoid" class="video" :src="video.info.url" :id="video.data.vid" autoplay="true" :data-vid="video.data.vid" @click="changeVid" bindtap="changeVid"></video> '),
+                    vue.createCommentVNode(' <CusVideo v-if="video.data.vid==videoid" class="video" :src="video.info.url" :id="video.data.vid" autoplay="true" :data-vid="video.data.vid" @click="changeVid" bindtap="changeVid"></CusVideo> '),
                     vue.withDirectives(vue.createElementVNode("image", {
                       class: "cover",
                       src: video.data.coverUrl,
@@ -3424,7 +3455,7 @@ This will fail in production.`);
                     ])
                   ])) : vue.createCommentVNode("v-if", true),
                   video.type == 2 ? (vue.openBlock(), vue.createElementBlock("view", { key: 1 }, [
-                    video.info ? vue.withDirectives((vue.openBlock(), vue.createElementBlock("video", {
+                    video.info ? vue.withDirectives((vue.openBlock(), vue.createBlock(CusVideo, {
                       class: "video",
                       src: video.info.url,
                       controls: true,
@@ -3433,16 +3464,19 @@ This will fail in production.`);
                       onTimeupdate: TimeUpdate,
                       onEnded: VideoEnd,
                       key: video.data.id
-                    }, [
-                      vue.createElementVNode("cover-view", {
-                        class: "cover_video",
-                        "data-vid": video.data.id,
-                        onClick: changeVid
-                      }, null, 8, ["data-vid"])
-                    ], 40, ["src", "id", "data-vid"])), [
+                    }, {
+                      default: vue.withCtx(() => [
+                        vue.createElementVNode("cover-view", {
+                          class: "cover_video",
+                          "data-vid": video.data.id,
+                          onClick: changeVid
+                        }, null, 8, ["data-vid"])
+                      ]),
+                      _: 2
+                    }, 1032, ["src", "id", "data-vid"])), [
                       [vue.vShow, video.data.id == videoid.value]
                     ]) : vue.createCommentVNode("v-if", true),
-                    vue.createCommentVNode(' <video v-if="video.data.vid==videoid" class="video" :src="video.info.url" :id="video.data.vid" autoplay="true" :data-vid="video.data.vid" @click="changeVid" bindtap="changeVid"></video> '),
+                    vue.createCommentVNode(' <video v-if="video.data.vid==videoid" class="video" :src="video.info.url" :id="video.data.vid" autoplay="true" :data-vid="video.data.vid" @click="changeVid" bindtap="changeVid"></CusVideo> '),
                     vue.withDirectives(vue.createElementVNode("image", {
                       class: "cover",
                       src: video.data.coverUrl,

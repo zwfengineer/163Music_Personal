@@ -18,14 +18,14 @@
 				<view class="video_list_item" v-for="video in currentVideos">
 
 					<view v-if="video.type==1">
-						<video v-show="video.data.vid == videoid" v-if="video.info" class="video" :src="video.info.url"
+						<CusVideo v-show="video.data.vid == videoid" v-if="video.info" class="video" :src="video.info.url"
 							:controls="true" :id="video.data.vid" :data-vid="video.data.vid" @timeupdate="TimeUpdate"
 							@ended="VideoEnd" :key="video.data.vid">
 							<cover-view class="cover_video" :data-vid="video.data.vid" @click="changeVid">
 							</cover-view>
-						</video>
+						</CusVideo>
 
-						<!-- <video v-if="video.data.vid==videoid" class="video" :src="video.info.url" :id="video.data.vid" autoplay="true" :data-vid="video.data.vid" @click="changeVid" bindtap="changeVid"></video> -->
+						<!-- <CusVideo v-if="video.data.vid==videoid" class="video" :src="video.info.url" :id="video.data.vid" autoplay="true" :data-vid="video.data.vid" @click="changeVid" bindtap="changeVid"></CusVideo> -->
 						<image v-show="video.data.vid != videoid " class="cover" :src="video.data.coverUrl"
 							:data-vid="video.data.vid" @click="changeVid"></image>
 						<view class="video_info">
@@ -47,14 +47,14 @@
 					</view>
 
 					<view v-if="video.type==2">
-						<video v-show="video.data.id == videoid" v-if="video.info" class="video" :src="video.info.url"
+						<CusVideo v-show="video.data.id == videoid" v-if="video.info" class="video" :src="video.info.url"
 							:controls="true" :id="video.data.id" :data-vid="video.data.id" @timeupdate="TimeUpdate"
 							@ended="VideoEnd" :key="video.data.id">
 							<cover-view class="cover_video" :data-vid="video.data.id" @click="changeVid">
 							</cover-view>
-						</video>
+						</CusVideo>
 
-						<!-- <video v-if="video.data.vid==videoid" class="video" :src="video.info.url" :id="video.data.vid" autoplay="true" :data-vid="video.data.vid" @click="changeVid" bindtap="changeVid"></video> -->
+						<!-- <video v-if="video.data.vid==videoid" class="video" :src="video.info.url" :id="video.data.vid" autoplay="true" :data-vid="video.data.vid" @click="changeVid" bindtap="changeVid"></CusVideo> -->
 						<image v-show="video.data.id != videoid " class="cover" :src="video.data.coverUrl"
 							:data-vid="video.data.id" @click="changeVid"></image>
 						<view class="video_info">
@@ -93,6 +93,7 @@
 	import pinia from "@/store/index.js"
 	import useVideoStore from "@/store/video.js"
 	import useUserStore from "@/store/user.js"
+	import CusVideo from "@/pages/videos/CusVideo.vue"
 
 	const videoStore = useVideoStore(pinia)
 	const userStore = useUserStore(pinia)
@@ -108,9 +109,12 @@
 	const videoArr = ref([])
 	const timeArr = ref([])
 	const refreshflag = ref(true)
-
+	
+	const Pages = getCurrentPages()
+	const page = Pages[Pages.length-1]
+	
 	const init = async () => {
-		await userStore.init()
+		await userStore.init(page.fullPath)
 		await videoStore.init()
 		navid.value = videoStore.tags[0].id
 	}
@@ -169,15 +173,15 @@
 
 	}
 	const VideoEnd = (event) => {
-		let vid = event.currentTarget.dataset.vid
+		let vid = event.vid
 		let record = timeArr.value.find(item => item.vid == vid)
 		videoContext.value.seek(0)
 		videoContext.value.play()
 		// timeArr.value.splice(timeArr.value.indexOf(record), 1)
 	}
 	const TimeUpdate = (event) => {
-		let vid = event.currentTarget.dataset.vid
-		let time = event.detail.currentTime
+		let vid = event.vid
+		let time = event.currentTime
 		let records = timeArr.value.find(item => item.vid == vid)
 		if (records) {
 			records.time = time
