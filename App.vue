@@ -1,5 +1,16 @@
-<script>
-	console.log("app start")
+<script setup>
+	import {
+		onMounted
+	} from "vue";
+	import request from "./util/request"
+	onMounted(() => {
+		request.get("/banner?type=1").then((value) => {
+			console.log(value)
+		}).catch((value) => {
+			console.log(value)
+		})
+	})
+	console.log("App Start")
 </script>
 <style lang="scss">
 	/*每个页面公共css */

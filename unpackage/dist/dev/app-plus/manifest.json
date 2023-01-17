@@ -38,11 +38,6 @@
       "id": "1",
       "kernel": "WKWebview"
     },
-    "statusbar": {
-      "immersed": "supportedDevice",
-      "style": "light",
-      "background": "#F8F8F8"
-    },
     "usingComponents": true,
     "nvueCompiler": "uni-app",
     "nvueStyleCompiler": "uni-app",
@@ -75,6 +70,11 @@
         }
       }
     },
+    "statusbar": {
+      "immersed": "supportedDevice",
+      "style": "dark",
+      "background": "#F8F8F8"
+    },
     "allowsInlineMediaPlayback": true,
     "safearea": {
       "background": "#FFFFFF",
@@ -85,13 +85,16 @@
     "uni-app": {
       "control": "uni-v3",
       "vueVersion": "3",
-      "compilerVersion": "3.6.5",
+      "compilerVersion": "3.6.17",
       "nvueCompiler": "uni-app",
       "renderer": "auto",
       "nvue": {
         "flex-direction": "column"
       },
-      "nvueLaunchMode": "normal"
+      "nvueLaunchMode": "normal",
+      "webView": {
+        "minUserAgentVersion": "49.0"
+      }
     },
     "tabBar": {
       "position": "bottom",
@@ -109,7 +112,7 @@
           "text": "首页"
         },
         {
-          "pagePath": "pages/videos/videos",
+          "pagePath": "pages/videos/videoslist",
           "text": "MV"
         },
         {

@@ -6,7 +6,7 @@ if(process.env.NODE_ENV === 'development'){
     baseUrl = "/api"
 // #endif
 // #ifdef APP-PLUS ||MP
-    baseUrl = "http://192.168.1.102:4000"
+    baseUrl = "http://192.168.2.68:4000"
 // #endif
 }else{
     baseUrl = ""
@@ -19,9 +19,11 @@ const server = (url, data = {}, method = "GET") => {
 			method,
 			data,
 			success(res) {
+				console.log(res)
 				resolve(res.data)
 			},
 			fail(err) {
+				console.log(err)
 				reject(err)
 			},
 		});

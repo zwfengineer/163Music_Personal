@@ -1,28 +1,12 @@
-var __defProp = Object.defineProperty;
-var __defProps = Object.defineProperties;
-var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
-var __getOwnPropSymbols = Object.getOwnPropertySymbols;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp.call(b, prop))
-      __defNormalProp(a, prop, b[prop]);
-  if (__getOwnPropSymbols)
-    for (var prop of __getOwnPropSymbols(b)) {
-      if (__propIsEnum.call(b, prop))
-        __defNormalProp(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 if (typeof Promise !== "undefined" && !Promise.prototype.finally) {
   Promise.prototype.finally = function(callback) {
     const promise = this.constructor;
-    return this.then((value) => promise.resolve(callback()).then(() => value), (reason) => promise.resolve(callback()).then(() => {
-      throw reason;
-    }));
+    return this.then(
+      (value) => promise.resolve(callback()).then(() => value),
+      (reason) => promise.resolve(callback()).then(() => {
+        throw reason;
+      })
+    );
   };
 }
 ;
@@ -47,7 +31,7 @@ if (uni.restoreGlobal) {
 }
 (function(vue, shared) {
   "use strict";
-  var _export_sfc = (sfc, props) => {
+  const _export_sfc = (sfc, props) => {
     const target = sfc.__vccOpts || sfc;
     for (const [key, val] of props) {
       target[key] = val;
@@ -65,18 +49,8 @@ if (uni.restoreGlobal) {
       };
     }
   };
-  var PagesInitInit = /* @__PURE__ */ _export_sfc(_sfc_main$b, [["__file", "G:/gitee/movementprojectsingle/pages/init/init.vue"]]);
-  function formatAppLog(type, filename, ...args) {
-    if (uni.__log__) {
-      uni.__log__(type, filename, ...args);
-    } else {
-      console[type].apply(console, [...args, filename]);
-    }
-  }
-  function resolveEasycom(component, easycom) {
-    return shared.isString(component) ? easycom : component;
-  }
-  var icons = {
+  const PagesInitInit = /* @__PURE__ */ _export_sfc(_sfc_main$b, [["__file", "G:/gitee/movementprojectsingle/pages/init/init.vue"]]);
+  const icons = {
     "id": "2852637",
     "name": "uniui\u56FE\u6807\u5E93",
     "font_family": "uniicons",
@@ -1295,14 +1269,24 @@ if (uni.restoreGlobal) {
       }
     }
   };
-  function _sfc_render$6(_ctx, _cache, $props, $setup, $data, $options) {
+  function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
     return vue.openBlock(), vue.createElementBlock("text", {
       style: vue.normalizeStyle({ color: $props.color, "font-size": $options.iconSize }),
       class: vue.normalizeClass(["uni-icons", ["uniui-" + $props.type, $props.customPrefix, $props.customPrefix ? $props.type : ""]]),
       onClick: _cache[0] || (_cache[0] = (...args) => $options._onClick && $options._onClick(...args))
     }, null, 6);
   }
-  var __easycom_0$2 = /* @__PURE__ */ _export_sfc(_sfc_main$a, [["render", _sfc_render$6], ["__scopeId", "data-v-a2e81f6e"], ["__file", "G:/gitee/movementprojectsingle/uni_modules/uni-icons/components/uni-icons/uni-icons.vue"]]);
+  const __easycom_0$2 = /* @__PURE__ */ _export_sfc(_sfc_main$a, [["render", _sfc_render$5], ["__scopeId", "data-v-d31e1c47"], ["__file", "G:/gitee/movementprojectsingle/uni_modules/uni-icons/components/uni-icons/uni-icons.vue"]]);
+  function formatAppLog(type, filename, ...args) {
+    if (uni.__log__) {
+      uni.__log__(type, filename, ...args);
+    } else {
+      console[type].apply(console, [...args, filename]);
+    }
+  }
+  function resolveEasycom(component, easycom) {
+    return shared.isString(component) ? easycom : component;
+  }
   const _sfc_main$9 = {
     name: "UniStatusBar",
     data() {
@@ -1314,7 +1298,7 @@ if (uni.restoreGlobal) {
       this.statusBarHeight = uni.getSystemInfoSync().statusBarHeight + "px";
     }
   };
-  function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
+  function _sfc_render$4(_ctx, _cache, $props, $setup, $data, $options) {
     return vue.openBlock(), vue.createElementBlock("view", {
       style: vue.normalizeStyle({ height: $data.statusBarHeight }),
       class: "uni-status-bar"
@@ -1322,7 +1306,7 @@ if (uni.restoreGlobal) {
       vue.renderSlot(_ctx.$slots, "default", {}, void 0, true)
     ], 4);
   }
-  var statusBar = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["render", _sfc_render$5], ["__scopeId", "data-v-f9a87a8e"], ["__file", "G:/gitee/movementprojectsingle/uni_modules/uni-nav-bar/components/uni-nav-bar/uni-status-bar.vue"]]);
+  const statusBar = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["render", _sfc_render$4], ["__scopeId", "data-v-7920e3e0"], ["__file", "G:/gitee/movementprojectsingle/uni_modules/uni-nav-bar/components/uni-nav-bar/uni-status-bar.vue"]]);
   const getVal = (val) => typeof val === "number" ? val + "px" : val;
   const _sfc_main$8 = {
     name: "UniNavBar",
@@ -1444,7 +1428,7 @@ if (uni.restoreGlobal) {
       }
     }
   };
-  function _sfc_render$4(_ctx, _cache, $props, $setup, $data, $options) {
+  function _sfc_render$3(_ctx, _cache, $props, $setup, $data, $options) {
     const _component_status_bar = vue.resolveComponent("status-bar");
     const _component_uni_icons = resolveEasycom(vue.resolveDynamicComponent("uni-icons"), __easycom_0$2);
     return vue.openBlock(), vue.createElementBlock("view", {
@@ -1539,10 +1523,10 @@ if (uni.restoreGlobal) {
       ])) : vue.createCommentVNode("v-if", true)
     ], 2);
   }
-  var __easycom_0$1 = /* @__PURE__ */ _export_sfc(_sfc_main$8, [["render", _sfc_render$4], ["__scopeId", "data-v-6bda1a90"], ["__file", "G:/gitee/movementprojectsingle/uni_modules/uni-nav-bar/components/uni-nav-bar/uni-nav-bar.vue"]]);
+  const __easycom_0$1 = /* @__PURE__ */ _export_sfc(_sfc_main$8, [["render", _sfc_render$3], ["__scopeId", "data-v-26544265"], ["__file", "G:/gitee/movementprojectsingle/uni_modules/uni-nav-bar/components/uni-nav-bar/uni-nav-bar.vue"]]);
   let baseUrl = "";
   {
-    baseUrl = "http://192.168.1.102:4000";
+    baseUrl = "http://192.168.2.68:4000";
   }
   const server = (url, data = {}, method = "GET") => {
     return new Promise((resolve, reject) => {
@@ -1551,9 +1535,11 @@ if (uni.restoreGlobal) {
         method,
         data,
         success(res) {
+          formatAppLog("log", "at util/request.js:22", res);
           resolve(res.data);
         },
         fail(err) {
+          formatAppLog("log", "at util/request.js:26", err);
           reject(err);
         }
       });
@@ -1728,7 +1714,7 @@ if (uni.restoreGlobal) {
     }
   }
   /*!
-    * pinia v2.0.14
+    * pinia v2.0.26
     * (c) 2022 Eduardo San Martin Morote
     * @license MIT
     */
@@ -1745,6 +1731,7 @@ if (uni.restoreGlobal) {
     MutationType2["patchFunction"] = "patch function";
   })(MutationType || (MutationType = {}));
   const IS_CLIENT = typeof window !== "undefined";
+  const USE_DEVTOOLS = IS_CLIENT;
   const _global = /* @__PURE__ */ (() => typeof window === "object" && window.window === window ? window : typeof self === "object" && self.self === self ? self : typeof global === "object" && global.global === global ? global : typeof globalThis === "object" ? globalThis : { HTMLElement: null })();
   function bom(blob, { autoBom = false } = {}) {
     if (autoBom && /^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(blob.type)) {
@@ -2133,6 +2120,23 @@ if (uni.restoreGlobal) {
             },
             tooltip: "Import the state from a JSON file"
           }
+        ],
+        nodeActions: [
+          {
+            icon: "restore",
+            tooltip: "Reset the state (option store only)",
+            action: (nodeId) => {
+              const store = pinia2._s.get(nodeId);
+              if (!store) {
+                toastMessage(`Cannot reset "${nodeId}" store because it wasn't found.`, "warn");
+              } else if (!store._isOptionsAPI) {
+                toastMessage(`Cannot reset "${nodeId}" store because it's a setup store.`, "warn");
+              } else {
+                store.$reset();
+                toastMessage(`Store "${nodeId}" reset.`);
+              }
+            }
+          }
         ]
       });
       api.on.inspectComponent((payload, ctx) => {
@@ -2146,7 +2150,7 @@ if (uni.restoreGlobal) {
               editable: true,
               value: store._isOptionsAPI ? {
                 _custom: {
-                  value: store.$state,
+                  value: vue.toRaw(store.$state),
                   actions: [
                     {
                       icon: "restore",
@@ -2155,7 +2159,10 @@ if (uni.restoreGlobal) {
                     }
                   ]
                 }
-              } : store.$state
+              } : Object.keys(store.$state).reduce((state, key) => {
+                state[key] = store.$state[key];
+                return state;
+              }, {})
             });
             if (store._getters && store._getters.length) {
               payload.instanceData.state.push({
@@ -2337,9 +2344,10 @@ Only state can be modified.`);
         const eventData = {
           time: now2(),
           title: formatMutationType(type),
-          data: __spreadValues({
-            store: formatDisplay(store.$id)
-          }, formatEventData(events)),
+          data: {
+            store: formatDisplay(store.$id),
+            ...formatEventData(events)
+          },
           groupId: activeAction
         };
         activeAction = void 0;
@@ -2430,14 +2438,20 @@ Only state can be modified.`);
       store._isOptionsAPI = true;
     }
     if (typeof options.state === "function") {
-      patchActionForGrouping(store, Object.keys(options.actions));
+      patchActionForGrouping(
+        store,
+        Object.keys(options.actions)
+      );
       const originalHotUpdate = store._hotUpdate;
       vue.toRaw(store)._hotUpdate = function(newStore) {
         originalHotUpdate.apply(this, arguments);
         patchActionForGrouping(store, Object.keys(newStore._hmrPayload.actions));
       };
     }
-    addStoreToDevtools(app, store);
+    addStoreToDevtools(
+      app,
+      store
+    );
   }
   function createPinia() {
     const scope = vue.effectScope(true);
@@ -2451,7 +2465,7 @@ Only state can be modified.`);
           pinia2._a = app;
           app.provide(piniaSymbol, pinia2);
           app.config.globalProperties.$pinia = pinia2;
-          if (IS_CLIENT) {
+          if (USE_DEVTOOLS) {
             registerPiniaDevtools(app, pinia2);
           }
           toBeInstalled.forEach((plugin) => _p.push(plugin));
@@ -2472,7 +2486,7 @@ Only state can be modified.`);
       _s: /* @__PURE__ */ new Map(),
       state
     });
-    if (IS_CLIENT && true) {
+    if (USE_DEVTOOLS && typeof Proxy !== "undefined") {
       pinia2.use(devtoolsPlugin);
     }
     return pinia2;
@@ -2505,8 +2519,8 @@ Only state can be modified.`);
         onCleanup();
       }
     };
-    if (!detached && vue.getCurrentInstance()) {
-      vue.onUnmounted(removeSubscription);
+    if (!detached && vue.getCurrentScope()) {
+      vue.onScopeDispose(removeSubscription);
     }
     return removeSubscription;
   }
@@ -2516,6 +2530,12 @@ Only state can be modified.`);
     });
   }
   function mergeReactiveObjects(target, patchToApply) {
+    if (target instanceof Map && patchToApply instanceof Map) {
+      patchToApply.forEach((value, key) => target.set(key, value));
+    }
+    if (target instanceof Set && patchToApply instanceof Set) {
+      patchToApply.forEach(target.add, target);
+    }
     for (const key in patchToApply) {
       if (!patchToApply.hasOwnProperty(key))
         continue;
@@ -2549,6 +2569,9 @@ Only state can be modified.`);
       }
       const localState = hot ? vue.toRefs(vue.ref(state ? state() : {}).value) : vue.toRefs(pinia2.state.value[id]);
       return assign(localState, actions, Object.keys(getters || {}).reduce((computedGetters, name) => {
+        if (name in localState) {
+          console.warn(`[\u{1F34D}]: A getter cannot have the same name as another state property. Rename one of them. Found with "${name}" in store "${id}".`);
+        }
         computedGetters[name] = vue.markRaw(vue.computed(() => {
           setActivePinia(pinia2);
           const store2 = pinia2._s.get(id);
@@ -2633,7 +2656,7 @@ Only state can be modified.`);
       triggerSubscriptions(subscriptions, subscriptionMutation, pinia2.state.value[$id]);
     }
     const $reset = () => {
-      throw new Error(`\u{1F34D}: Store "${$id}" is build using the setup syntax and does not implement $reset().`);
+      throw new Error(`\u{1F34D}: Store "${$id}" is built using the setup syntax and does not implement $reset().`);
     };
     function $dispose() {
       scope.stop();
@@ -2707,10 +2730,15 @@ Only state can be modified.`);
       },
       $dispose
     };
-    const store = vue.reactive(assign(IS_CLIENT ? {
-      _customProperties: vue.markRaw(/* @__PURE__ */ new Set()),
-      _hmrPayload
-    } : {}, partialStore));
+    const store = vue.reactive(
+      assign(
+        {
+          _hmrPayload,
+          _customProperties: vue.markRaw(/* @__PURE__ */ new Set())
+        },
+        partialStore
+      )
+    );
     pinia2._s.set($id, store);
     const setupStore = pinia2._e.run(() => {
       scope = vue.effectScope();
@@ -2823,21 +2851,22 @@ Only state can be modified.`);
         store._getters = newStore._getters;
         store._hotUpdating = false;
       });
+    }
+    if (USE_DEVTOOLS) {
       const nonEnumerable = {
         writable: true,
         configurable: true,
         enumerable: false
       };
-      if (IS_CLIENT) {
-        ["_p", "_hmrPayload", "_getters", "_customProperties"].forEach((p) => {
-          Object.defineProperty(store, p, __spreadValues({
-            value: store[p]
-          }, nonEnumerable));
+      ["_p", "_hmrPayload", "_getters", "_customProperties"].forEach((p) => {
+        Object.defineProperty(store, p, {
+          value: store[p],
+          ...nonEnumerable
         });
-      }
+      });
     }
     pinia2._p.forEach((extender) => {
-      if (IS_CLIENT) {
+      if (USE_DEVTOOLS) {
         const extensions = scope.run(() => extender({
           store,
           app: pinia2._a,
@@ -2963,8 +2992,14 @@ This will fail in production.`);
       },
       async reqGetTopList() {
         let res = await request.get("/toplist");
-        this.toplist = res.list;
-        formatAppLog("log", "at store/home.js:40", res);
+        this.toplist = res.list.filter((item, key) => {
+          if (key > 8) {
+            return false;
+          } else {
+            return true;
+          }
+        });
+        formatAppLog("log", "at store/home.js:46", res);
         this.toplist.forEach((item) => {
           this.reqGetSongs(item);
         });
@@ -2990,18 +3025,23 @@ This will fail in production.`);
     },
     actions: {
       async init() {
-        await this.reqGetStatus();
-        if (this.account.status == -10) {
-          uni.navigateTo({
-            url: "/pages/login/login",
-            success: (res) => {
-            },
-            fail: (err) => {
-              formatAppLog("log", "at store/user.js:24", err);
-            },
-            complete: () => {
-            }
-          });
+        try {
+          await this.reqGetStatus();
+        } catch (err) {
+          formatAppLog("log", "at store/user.js:21", err);
+        } finally {
+          if (this.account.status == -10) {
+            uni.navigateTo({
+              url: `/pages/login/login?redirect=${decodeURI("/pages/videos/videoslist")}`,
+              success: (res) => {
+              },
+              fail: (err) => {
+                formatAppLog("log", "at store/user.js:28", err);
+              },
+              complete: () => {
+              }
+            });
+          }
         }
       },
       async reqLogin(data) {
@@ -3038,110 +3078,107 @@ This will fail in production.`);
   });
   const pinia = createPinia();
   const _sfc_main$7 = {
-    setup() {
+    __name: "home",
+    setup(__props) {
       const homeStore = useHomeStore(pinia);
       const userStore = useUserStore(pinia);
       const {
         account
       } = storeToRefs(userStore);
-      formatAppLog("log", "at pages/home/home.vue:74", "home setup");
-      vue.onDeactivated(() => {
-        formatAppLog("log", "at pages/home/home.vue:77", "deActivated");
-      });
-      return __spreadProps(__spreadValues({}, storeToRefs(homeStore)), {
-        account
-      });
-    },
-    onInit: () => {
-      formatAppLog("log", "at pages/home/home.vue:87", "Home  page init");
-    },
-    onLoad: () => {
-      formatAppLog("log", "at pages/home/home.vue:90", "Home page load");
-    },
-    onUnload: () => {
-      formatAppLog("log", "at pages/home/home.vue:93", "Home page unload");
+      const {
+        recommendMusic,
+        banners,
+        balls,
+        toplist
+      } = storeToRefs(homeStore);
+      const init = async () => {
+        homeStore.reqGetBanners();
+        homeStore.reqGetBalls();
+        homeStore.reqGetTopList();
+      };
+      init();
+      return (_ctx, _cache) => {
+        const _component_uni_nav_bar = resolveEasycom(vue.resolveDynamicComponent("uni-nav-bar"), __easycom_0$1);
+        return vue.openBlock(), vue.createElementBlock("view", { class: "container" }, [
+          vue.createElementVNode("view", { class: "swiper_container" }, [
+            vue.createCommentVNode(" swiper \u7EC4\u4EF6 \u9996\u9875\u8F6E\u64AD\u56FE "),
+            vue.createElementVNode("swiper", null, [
+              (vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList(vue.unref(banners), (item) => {
+                return vue.openBlock(), vue.createElementBlock("swiper-item", null, [
+                  vue.createElementVNode("image", {
+                    src: item.pic,
+                    alt: ""
+                  }, null, 8, ["src"])
+                ]);
+              }), 256))
+            ])
+          ]),
+          vue.createElementVNode("view", { class: "main_container" }, [
+            vue.createElementVNode("view", { class: "home_navbar" }, [
+              (vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList(vue.unref(balls), (ball) => {
+                return vue.openBlock(), vue.createElementBlock("view", { class: "ball_item" }, [
+                  vue.createElementVNode("image", {
+                    src: ball.iconUrl
+                  }, null, 8, ["src"]),
+                  vue.createElementVNode("text", null, vue.toDisplayString(ball.name), 1)
+                ]);
+              }), 256))
+            ])
+          ]),
+          vue.createCommentVNode(" \u6BCF\u65E5\u63A8\u8350 "),
+          vue.createElementVNode("text", { class: "title" }, "\u63A8\u8350\u6B4C\u66F2"),
+          vue.withDirectives(vue.createElementVNode("view", { class: "recommend_container" }, [
+            vue.createVNode(_component_uni_nav_bar, {
+              leftWidth: "80px",
+              leftText: "\u4E3A\u60A8\u7CBE\u5FC3\u63A8\u8350"
+            }),
+            vue.createElementVNode("scroll-view", {
+              class: "recommend_music",
+              "scroll-x": "true"
+            }, [
+              (vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList(vue.unref(recommendMusic).dailySongs, (song) => {
+                return vue.openBlock(), vue.createElementBlock("view", { class: "recommend_item" }, [
+                  vue.createElementVNode("image", {
+                    src: song.al.picUrl
+                  }, null, 8, ["src"]),
+                  vue.createElementVNode("text", null, vue.toDisplayString(song.al.name), 1)
+                ]);
+              }), 256))
+            ])
+          ], 512), [
+            [vue.vShow, vue.unref(account).status == 0]
+          ]),
+          vue.createElementVNode("text", { class: "title" }, "\u6392\u884C\u699C"),
+          vue.createVNode(_component_uni_nav_bar, {
+            leftWidth: "80px",
+            leftText: "\u70ED\u6B4C\u98CE\u5411\u6807"
+          }),
+          vue.createElementVNode("swiper", { class: "toplist" }, [
+            (vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList(vue.unref(toplist), (item) => {
+              return vue.openBlock(), vue.createElementBlock("swiper-item", null, [
+                vue.createElementVNode("view", { class: "songs_list" }, [
+                  vue.createElementVNode("text", { class: "title" }, vue.toDisplayString(item.name), 1),
+                  vue.createElementVNode("view", { class: "songs_list_body" }, [
+                    (vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList(item.tracks, (song) => {
+                      return vue.openBlock(), vue.createElementBlock("view", { class: "songs_item" }, [
+                        vue.createElementVNode("view", { class: "image" }, [
+                          vue.createElementVNode("image", {
+                            src: song.al.picUrl
+                          }, null, 8, ["src"])
+                        ]),
+                        vue.createElementVNode("text", null, vue.toDisplayString(song.name), 1)
+                      ]);
+                    }), 256))
+                  ])
+                ])
+              ]);
+            }), 256))
+          ])
+        ]);
+      };
     }
   };
-  function _sfc_render$3(_ctx, _cache, $props, $setup, $data, $options) {
-    const _component_uni_nav_bar = resolveEasycom(vue.resolveDynamicComponent("uni-nav-bar"), __easycom_0$1);
-    return vue.openBlock(), vue.createElementBlock("view", { class: "container" }, [
-      vue.createElementVNode("view", { class: "swiper_container" }, [
-        vue.createCommentVNode(" swiper \u7EC4\u4EF6 \u9996\u9875\u8F6E\u64AD\u56FE "),
-        vue.createElementVNode("swiper", null, [
-          (vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList(_ctx.banners, (item) => {
-            return vue.openBlock(), vue.createElementBlock("swiper-item", null, [
-              vue.createElementVNode("image", {
-                src: item.pic,
-                alt: ""
-              }, null, 8, ["src"])
-            ]);
-          }), 256))
-        ])
-      ]),
-      vue.createElementVNode("view", { class: "main_container" }, [
-        vue.createElementVNode("view", { class: "home_navbar" }, [
-          (vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList(_ctx.balls, (ball) => {
-            return vue.openBlock(), vue.createElementBlock("view", { class: "ball_item" }, [
-              vue.createElementVNode("image", {
-                src: ball.iconUrl
-              }, null, 8, ["src"]),
-              vue.createElementVNode("text", null, vue.toDisplayString(ball.name), 1)
-            ]);
-          }), 256))
-        ])
-      ]),
-      vue.createCommentVNode(" \u6BCF\u65E5\u63A8\u8350 "),
-      vue.createElementVNode("text", { class: "title" }, "\u63A8\u8350\u6B4C\u66F2"),
-      vue.withDirectives(vue.createElementVNode("view", { class: "recommend_container" }, [
-        vue.createVNode(_component_uni_nav_bar, {
-          leftWidth: "80px",
-          leftText: "\u4E3A\u60A8\u7CBE\u5FC3\u63A8\u8350"
-        }),
-        vue.createElementVNode("scroll-view", {
-          class: "recommend_music",
-          "scroll-x": "true"
-        }, [
-          (vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList(_ctx.recommendMusic.dailySongs, (song) => {
-            return vue.openBlock(), vue.createElementBlock("view", { class: "recommend_item" }, [
-              vue.createElementVNode("image", {
-                src: song.al.picUrl
-              }, null, 8, ["src"]),
-              vue.createElementVNode("text", null, vue.toDisplayString(song.al.name), 1)
-            ]);
-          }), 256))
-        ])
-      ], 512), [
-        [vue.vShow, $setup.account.status == 0]
-      ]),
-      vue.createElementVNode("text", { class: "title" }, "\u6392\u884C\u699C"),
-      vue.createVNode(_component_uni_nav_bar, {
-        leftWidth: "80px",
-        leftText: "\u70ED\u6B4C\u98CE\u5411\u6807"
-      }),
-      vue.createElementVNode("swiper", { class: "toplist" }, [
-        (vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList(_ctx.toplist, (item) => {
-          return vue.openBlock(), vue.createElementBlock("swiper-item", null, [
-            vue.createElementVNode("view", { class: "songs_list" }, [
-              vue.createElementVNode("text", { class: "title" }, vue.toDisplayString(item.name), 1),
-              vue.createElementVNode("view", { class: "songs_list_body" }, [
-                (vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList(item.tracks, (song) => {
-                  return vue.openBlock(), vue.createElementBlock("view", { class: "songs_item" }, [
-                    vue.createElementVNode("view", { class: "image" }, [
-                      vue.createElementVNode("image", {
-                        src: song.al.picUrl
-                      }, null, 8, ["src"])
-                    ]),
-                    vue.createElementVNode("text", null, vue.toDisplayString(song.name), 1)
-                  ]);
-                }), 256))
-              ])
-            ])
-          ]);
-        }), 256))
-      ])
-    ]);
-  }
-  var PagesHomeHome = /* @__PURE__ */ _export_sfc(_sfc_main$7, [["render", _sfc_render$3], ["__file", "G:/gitee/movementprojectsingle/pages/home/home.vue"]]);
+  const PagesHomeHome = /* @__PURE__ */ _export_sfc(_sfc_main$7, [["__file", "G:/gitee/movementprojectsingle/pages/home/home.vue"]]);
   const useVideoStore = defineStore("video", {
     state() {
       return {
@@ -3172,17 +3209,19 @@ This will fail in production.`);
         let result = await request.get("/video/url", {
           id
         });
-        item.info = __spreadProps(__spreadValues({}, result.urls[0]), {
+        item.info = {
+          ...result.urls[0],
           flag: true
-        });
+        };
       },
       async reqGetMVInfo(id, item) {
         let result = await request.get("/mv/url", {
           id
         });
-        item.info = __spreadProps(__spreadValues({}, result.data), {
+        item.info = {
+          ...result.data,
           flag: true
-        });
+        };
       },
       async init() {
         await this.reqGetTags();
@@ -3191,9 +3230,10 @@ This will fail in production.`);
     }
   });
   const _sfc_main$6 = {
-    __name: "videos",
+    __name: "videoslist",
     setup(__props) {
       const videoStore = useVideoStore(pinia);
+      const userStore = useUserStore(pinia);
       const {
         tags
       } = storeToRefs(videoStore);
@@ -3203,6 +3243,11 @@ This will fail in production.`);
       vue.ref([]);
       const timeArr = vue.ref([]);
       const refreshflag = vue.ref(true);
+      const init = async () => {
+        await userStore.init();
+        await videoStore.init();
+        navid.value = videoStore.tags[0].id;
+      };
       const changenav = async (event) => {
         let nid = event.currentTarget.dataset.navId;
         if (nid != navid.value) {
@@ -3217,10 +3262,6 @@ This will fail in production.`);
           await videoStore.reqGetVideo(navid.value);
         }
         vue.nextTick();
-      };
-      const init = async () => {
-        await videoStore.init();
-        navid.value = videoStore.tags[0].id;
       };
       const changeVid = async (event) => {
         let vid = event.currentTarget.dataset.vid;
@@ -3248,7 +3289,7 @@ This will fail in production.`);
         }
       };
       const titleclick = async () => {
-        formatAppLog("log", "at pages/videos/videos.vue:158", "title click");
+        formatAppLog("log", "at pages/videos/videoslist.vue:164", "title click");
         videoContext.value.pause();
       };
       const VideoEnd = (event) => {
@@ -3271,7 +3312,7 @@ This will fail in production.`);
         }
       };
       const refreshvideo = async () => {
-        formatAppLog("log", "at pages/videos/videos.vue:187", "refreshvideo");
+        formatAppLog("log", "at pages/videos/videoslist.vue:193", "refreshvideo");
         refreshflag.value = true;
         videoid.value = null;
         if (videoContext.value) {
@@ -3318,12 +3359,13 @@ This will fail in production.`);
                 return vue.openBlock(), vue.createElementBlock("view", {
                   class: "tag",
                   id: "navid" + item.id,
+                  key: item.id,
                   "data-navId": item.id,
                   onClick: changenav
                 }, [
                   vue.createElementVNode("text", { class: "tag_title" }, vue.toDisplayString(item.name), 1)
                 ], 8, ["id", "data-navId"]);
-              }), 256))
+              }), 128))
             ], 8, ["scroll-into-view"]),
             vue.createElementVNode("scroll-view", {
               "scroll-y": "true",
@@ -3442,7 +3484,7 @@ This will fail in production.`);
       };
     }
   };
-  var PagesVideosVideos = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["__file", "G:/gitee/movementprojectsingle/pages/videos/videos.vue"]]);
+  const PagesVideosVideoslist = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["__file", "G:/gitee/movementprojectsingle/pages/videos/videoslist.vue"]]);
   const ComponentClass$1 = "uni-col";
   const _sfc_main$5 = {
     name: "uniCol",
@@ -3513,7 +3555,9 @@ This will fail in production.`);
             classList.push(`${ComponentClass$1}-${point}-${props}`);
           } else if (typeof props === "object" && props) {
             Object.keys(props).forEach((pointProp) => {
-              classList.push(pointProp === "span" ? `${ComponentClass$1}-${point}-${props[pointProp]}` : `${ComponentClass$1}-${point}-${pointProp}-${props[pointProp]}`);
+              classList.push(
+                pointProp === "span" ? `${ComponentClass$1}-${point}-${props[pointProp]}` : `${ComponentClass$1}-${point}-${pointProp}-${props[pointProp]}`
+              );
             });
           }
         });
@@ -3536,7 +3580,9 @@ This will fail in production.`);
           for (let size in newVal) {
             const curSize = newVal[size];
             if ((curSize || curSize === 0) && curSize !== -1) {
-              classList.push(size === "span" ? `${ComponentClass$1}-${curSize}` : `${ComponentClass$1}-${size}-${curSize}`);
+              classList.push(
+                size === "span" ? `${ComponentClass$1}-${curSize}` : `${ComponentClass$1}-${size}-${curSize}`
+              );
             }
           }
           this.sizeClass = classList.join(" ");
@@ -3555,7 +3601,7 @@ This will fail in production.`);
       vue.renderSlot(_ctx.$slots, "default", {}, void 0, true)
     ], 6);
   }
-  var __easycom_0 = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$2], ["__scopeId", "data-v-fff79656"], ["__file", "G:/gitee/movementprojectsingle/uni_modules/uni-row/components/uni-col/uni-col.vue"]]);
+  const __easycom_0 = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$2], ["__scopeId", "data-v-28ff6624"], ["__file", "G:/gitee/movementprojectsingle/uni_modules/uni-row/components/uni-col/uni-col.vue"]]);
   const ComponentClass = "uni-row";
   const modifierSeparator = "--";
   const _sfc_main$4 = {
@@ -3608,18 +3654,22 @@ This will fail in production.`);
       vue.renderSlot(_ctx.$slots, "default", {}, void 0, true)
     ], 6);
   }
-  var __easycom_1 = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["render", _sfc_render$1], ["__scopeId", "data-v-1d993189"], ["__file", "G:/gitee/movementprojectsingle/uni_modules/uni-row/components/uni-row/uni-row.vue"]]);
+  const __easycom_1 = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["render", _sfc_render$1], ["__scopeId", "data-v-097353af"], ["__file", "G:/gitee/movementprojectsingle/uni_modules/uni-row/components/uni-row/uni-row.vue"]]);
   const _sfc_main$3 = {
     __name: "center",
     setup(__props) {
       const userStore = useUserStore(pinia);
+      const pages = getCurrentPages();
+      const page = pages.pop().$page;
       const {
         account,
         profile
       } = storeToRefs(userStore);
       const tologin = () => {
+        let path = encodeURI(page.fullPath);
+        formatAppLog("log", "at pages/center/center.vue:33", page, page.fullPath);
         uni.navigateTo({
-          url: "/pages/login/login"
+          url: `/pages/login/login?redirect=${path}`
         });
       };
       return (_ctx, _cache) => {
@@ -3653,20 +3703,31 @@ This will fail in production.`);
       };
     }
   };
-  var PagesCenterCenter = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__file", "G:/gitee/movementprojectsingle/pages/center/center.vue"]]);
+  const PagesCenterCenter = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__file", "G:/gitee/movementprojectsingle/pages/center/center.vue"]]);
   const _sfc_main$2 = {
     __name: "login",
     setup(__props) {
       const phone = vue.ref("15132892786");
       const password = vue.ref("S9uksLYaAZp83Kb");
       const userStore = useUserStore(pinia);
+      const pages = getCurrentPages();
+      const page = pages.pop().$page;
       const login = async () => {
-        await userStore.reqGetStatus();
-        back();
+        try {
+          await userStore.reqLogin({
+            phone: phone.value,
+            password: password.value
+          });
+        } catch (e) {
+          alert(e);
+        } finally {
+          back();
+        }
       };
       const back = () => {
-        uni.navigateBack({
-          detail: 1
+        let path = decodeURI(page.options.redirect);
+        uni.switchTab({
+          url: path
         });
       };
       return (_ctx, _cache) => {
@@ -3732,7 +3793,7 @@ This will fail in production.`);
       };
     }
   };
-  var PagesLoginLogin = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["__file", "G:/gitee/movementprojectsingle/pages/login/login.vue"]]);
+  const PagesLoginLogin = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["__file", "G:/gitee/movementprojectsingle/pages/login/login.vue"]]);
   const _sfc_main$1 = {
     data() {
       return {};
@@ -3742,33 +3803,29 @@ This will fail in production.`);
   function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     return vue.openBlock(), vue.createElementBlock("view");
   }
-  var PagesRadioRadio = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render], ["__file", "G:/gitee/movementprojectsingle/pages/radio/radio.vue"]]);
+  const PagesRadioRadio = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render], ["__file", "G:/gitee/movementprojectsingle/pages/radio/radio.vue"]]);
   __definePage("pages/init/init", PagesInitInit);
   __definePage("pages/home/home", PagesHomeHome);
-  __definePage("pages/videos/videos", PagesVideosVideos);
+  __definePage("pages/videos/videoslist", PagesVideosVideoslist);
   __definePage("pages/center/center", PagesCenterCenter);
   __definePage("pages/login/login", PagesLoginLogin);
   __definePage("pages/radio/radio", PagesRadioRadio);
   const _sfc_main = {
-    setup() {
-      const userStore = useUserStore(pinia);
-      const homeStore = useHomeStore(pinia);
-      userStore.$subscribe((mutation, state) => {
-        if (state.account.status == 0) {
-          homeStore.reqGetRecommendMusic();
-        }
-      }, {
-        detached: true
+    __name: "App",
+    setup(__props) {
+      vue.onMounted(() => {
+        request.get("/banner?type=1").then((value) => {
+          formatAppLog("log", "at App.vue:8", value);
+        }).catch((value) => {
+          formatAppLog("log", "at App.vue:10", value);
+        });
       });
-      const init = () => {
-        homeStore.reqGetBanners();
-        homeStore.reqGetBalls();
-        homeStore.reqGetTopList();
+      formatAppLog("log", "at App.vue:13", "App Start");
+      return () => {
       };
-      init();
     }
   };
-  var App = /* @__PURE__ */ _export_sfc(_sfc_main, [["__file", "G:/gitee/movementprojectsingle/App.vue"]]);
+  const App = /* @__PURE__ */ _export_sfc(_sfc_main, [["__file", "G:/gitee/movementprojectsingle/App.vue"]]);
   function createApp() {
     const app = vue.createVueApp(App);
     app.use(pinia);
