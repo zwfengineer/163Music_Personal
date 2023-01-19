@@ -1535,11 +1535,9 @@ if (uni.restoreGlobal) {
         method,
         data,
         success(res) {
-          formatAppLog("log", "at util/request.js:22", res);
           resolve(res.data);
         },
         fail(err) {
-          formatAppLog("log", "at util/request.js:26", err);
           reject(err);
         }
       });
@@ -2026,11 +2024,11 @@ if (uni.restoreGlobal) {
     if (!events)
       return {};
     if (Array.isArray(events)) {
-      return events.reduce((data, event) => {
-        data.keys.push(event.key);
-        data.operations.push(event.type);
-        data.oldValue[event.key] = event.oldValue;
-        data.newValue[event.key] = event.newValue;
+      return events.reduce((data, event2) => {
+        data.keys.push(event2.key);
+        data.operations.push(event2.type);
+        data.oldValue[event2.key] = event2.oldValue;
+        data.newValue[event2.key] = event2.newValue;
         return data;
       }, {
         oldValue: {},
@@ -2599,12 +2597,12 @@ Only state can be modified.`);
       deep: true
     };
     {
-      $subscribeOptions.onTrigger = (event) => {
+      $subscribeOptions.onTrigger = (event2) => {
         if (isListening) {
-          debuggerEvents = event;
+          debuggerEvents = event2;
         } else if (isListening == false && !store._hotUpdating) {
           if (Array.isArray(debuggerEvents)) {
-            debuggerEvents.push(event);
+            debuggerEvents.push(event2);
           } else {
             console.error("\u{1F34D} debuggerEvents should be an array. This is most likely an internal Pinia bug.");
           }
@@ -3234,7 +3232,34 @@ This will fail in production.`);
     (Comp.$renderjs || (Comp.$renderjs = [])).push("videoContainer");
     (Comp.$renderjsModules || (Comp.$renderjsModules = {}))["videoContainer"] = "c52744d6";
   };
-  const _sfc_main$7 = {
+  const __default__ = vue.defineComponent({
+    mounted() {
+      formatAppLog("log", "at pages/videos/CusVideo.vue:39", this);
+    },
+    data() {
+      return {
+        context: null
+      };
+    },
+    methods: {
+      timeupdate(event2) {
+        this.$emit("timeupdate", {
+          vid: event2.dataset,
+          currentTime: event2.timeStamp
+        });
+      },
+      ended(vent) {
+        this.$emit("ended", {
+          vid: event.dataset,
+          currentTime: event.timeStamp
+        });
+      },
+      setContext() {
+        formatAppLog("log", "at pages/videos/CusVideo.vue:61", this);
+      }
+    }
+  });
+  const _sfc_main$7 = /* @__PURE__ */ Object.assign(__default__, {
     __name: "CusVideo",
     props: ["controls", "id", "key", "src"],
     emits: ["timeupdate", "ended"],
@@ -3251,7 +3276,7 @@ This will fail in production.`);
         ]);
       };
     }
-  };
+  });
   if (typeof block0 === "function")
     block0(_sfc_main$7);
   const CusVideo = /* @__PURE__ */ _export_sfc(_sfc_main$7, [["__file", "G:/gitee/movementprojectsingle/pages/videos/CusVideo.vue"]]);
@@ -3276,8 +3301,8 @@ This will fail in production.`);
         await videoStore.init();
         navid.value = videoStore.tags[0].id;
       };
-      const changenav = async (event) => {
-        let nid = event.currentTarget.dataset.navId;
+      const changenav = async (event2) => {
+        let nid = event2.currentTarget.dataset.navId;
         if (nid != navid.value) {
           navid.value = nid;
           videoid.value = null;
@@ -3291,8 +3316,8 @@ This will fail in production.`);
         }
         vue.nextTick();
       };
-      const changeVid = async (event) => {
-        let vid = event.currentTarget.dataset.vid;
+      const changeVid = async (event2) => {
+        let vid = event2.currentTarget.dataset.vid;
         if (!videoContext.value) {
           videoid.value = vid;
           videoContext.value = uni.createVideoContext(vid);
@@ -3317,18 +3342,19 @@ This will fail in production.`);
         }
       };
       const titleclick = async () => {
-        formatAppLog("log", "at pages/videos/videoslist.vue:168", "title click");
+        formatAppLog("log", "at pages/videos/videoslist.vue:177", "title click");
         videoContext.value.pause();
       };
-      const VideoEnd = (event) => {
-        let vid = event.vid;
+      const VideoEnd = (event2) => {
+        formatAppLog("log", "at pages/videos/videoslist.vue:185", event2);
+        let vid = event2.vid;
         timeArr.value.find((item) => item.vid == vid);
         videoContext.value.seek(0);
         videoContext.value.play();
       };
-      const TimeUpdate = (event) => {
-        let vid = event.vid;
-        let time = event.currentTime;
+      const TimeUpdate = (event2) => {
+        let vid = event2.vid;
+        let time = event2.currentTime;
         let records = timeArr.value.find((item) => item.vid == vid);
         if (records) {
           records.time = time;
@@ -3340,7 +3366,7 @@ This will fail in production.`);
         }
       };
       const refreshvideo = async () => {
-        formatAppLog("log", "at pages/videos/videoslist.vue:197", "refreshvideo");
+        formatAppLog("log", "at pages/videos/videoslist.vue:207", "refreshvideo");
         refreshflag.value = true;
         videoid.value = null;
         if (videoContext.value) {

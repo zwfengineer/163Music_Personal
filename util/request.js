@@ -19,11 +19,11 @@ const server = (url, data = {}, method = "GET") => {
 			method,
 			data,
 			success(res) {
-				console.log(res)
+				// console.log(res)
 				resolve(res.data)
 			},
 			fail(err) {
-				console.log(err)
+				// console.log(err)
 				reject(err)
 			},
 		});

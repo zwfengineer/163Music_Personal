@@ -35,14 +35,26 @@ __renderjsModules.c52744d6 = (() => {
         video.src = this.option.src;
         video.controls = this.option.controls;
         video.id = this.option.id;
+        video.ontimeupdate = this.timeupdate;
+        video.onended = this.ended;
         return video;
       },
       init() {
         let container = this.$ownerInstance.$el.querySelector(".videoContainer");
         container.append(this.video());
+        this.setcontext();
       },
       update(nv) {
         this.option = nv;
+      },
+      timeupdate(event) {
+        this.$ownerInstance.callMethod("timeupdate", event);
+      },
+      ended(event) {
+        this.$ownerInstance.callMethod("ended", event);
+      },
+      setcontext() {
+        this.$ownerInstance.callMethod("setContext");
       }
     }
   };

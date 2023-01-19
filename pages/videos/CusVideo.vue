@@ -13,12 +13,16 @@
 
 <script setup>
 	import {
-		defineProps
+		defineComponent,
+		defineProps,
+		getCurrentInstance,
+		onMounted
 	} from "vue"
 	const props = defineProps(['controls', 'id', 'key', 'src'])
 	const emit = defineEmits(['timeupdate', 'ended'])
 	const option = props
 	const timeupdate = (event) => {
+		console.log("video timeupdate")
 		emit('timeupdate', {
 			vid: event.currentTarget.dataset,
 			currentTime: event.detail.currentTime
@@ -28,26 +32,71 @@
 		emit('ended', event)
 	}
 </script>
-<script module="videoContainer" lang="renderjs">
-	export default{
+<script>
+	// #ifdef APP
+	export default defineComponent({
 		mounted(){
+			console.log(this)
+		},
+		data() {
+			return {
+				context:null
+			}
+		},
+		methods: {
+			timeupdate(event) {
+				this.$emit("timeupdate", {
+					vid: event.dataset,
+					currentTime: event.timeStamp
+				})
+			},
+			ended(vent) {
+				this.$emit("ended", {
+					vid: event.dataset,
+					currentTime: event.timeStamp
+				})
+			},
+			setContext(){
+				// let video = this.$el.querySelector("video")
+				console.log(this)
+			}
+		}
+	})
+	// #endif
+</script>
+<script module="videoContainer" lang="renderjs">
+	export default {
+		mounted() {
+			// console.log(this)
 			this.init()
 		},
-		methods:{
-			video(){
+		methods: {
+			video() {
 				let video = document.createElement("video")
 				video.className = "video"
 				video.src = this.option.src
 				video.controls = this.option.controls
 				video.id = this.option.id
+				video.ontimeupdate = this.timeupdate
+				video.onended = this.ended
 				return video
 			},
-			init(){
+			init() {
 				let container = this.$ownerInstance.$el.querySelector(".videoContainer")
 				container.append(this.video())
+				this.setcontext()
 			},
-			update(nv){
+			update(nv) {
 				this.option = nv
+			},
+			timeupdate(event) {
+				this.$ownerInstance.callMethod("timeupdate", event)
+			},
+			ended(event) {
+				this.$ownerInstance.callMethod("ended", event)
+			},
+			setcontext(){
+				this.$ownerInstance.callMethod("setContext")
 			}
 		}
 	}

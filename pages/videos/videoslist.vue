@@ -113,6 +113,15 @@
 	const Pages = getCurrentPages()
 	const page = Pages[Pages.length-1]
 	
+	// #ifdef APP
+	let getVideoCtx = (id)=>{
+		let qs = uni.createSelectorQuery()
+		let videolist = qs.select(".video")
+		console.log(videolist)
+	}
+	// uni.createVideoContext = getVideoCtx
+	// #endif
+	
 	const init = async () => {
 		await userStore.init(page.fullPath)
 		await videoStore.init()
@@ -173,6 +182,7 @@
 
 	}
 	const VideoEnd = (event) => {
+		console.log(event)
 		let vid = event.vid
 		let record = timeArr.value.find(item => item.vid == vid)
 		videoContext.value.seek(0)
