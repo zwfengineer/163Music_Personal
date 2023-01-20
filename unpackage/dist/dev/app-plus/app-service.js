@@ -3234,12 +3234,8 @@ This will fail in production.`);
   };
   const __default__ = vue.defineComponent({
     mounted() {
-      formatAppLog("log", "at pages/videos/CusVideo.vue:39", this);
-    },
-    data() {
-      return {
-        context: null
-      };
+      this.$props.play = true;
+      formatAppLog("log", "at pages/videos/CusVideo.vue:49", this.videoContainer);
     },
     methods: {
       timeupdate(event2) {
@@ -3255,7 +3251,6 @@ This will fail in production.`);
         });
       },
       setContext() {
-        formatAppLog("log", "at pages/videos/CusVideo.vue:61", this);
       }
     }
   });
@@ -3265,14 +3260,33 @@ This will fail in production.`);
     emits: ["timeupdate", "ended"],
     setup(__props, { emit }) {
       const props = __props;
+      const ctx = vue.ref("");
       const option = props;
+      const context = {
+        id: props.id,
+        src: props.src,
+        play: () => {
+          ctx.value = "play";
+        },
+        pause: () => {
+          ctx.value = "pause";
+        },
+        stop: () => {
+          ctx.value = "stop";
+        }
+      };
+      vue.onMounted(() => {
+        context.play();
+      });
       return (_ctx, _cache) => {
         return vue.openBlock(), vue.createElementBlock("view", { class: "container" }, [
           vue.createElementVNode("view", {
             class: "videoContainer",
             prop: vue.unref(option),
-            "change:prop": _ctx.videoContainer.update
-          }, null, 8, ["prop", "change:prop"])
+            ctx: ctx.value,
+            "change:prop": _ctx.videoContainer.update,
+            "change:ctx": _ctx.videoContainer.updatectx
+          }, null, 8, ["prop", "ctx", "change:prop", "change:ctx"])
         ]);
       };
     }
@@ -3295,7 +3309,7 @@ This will fail in production.`);
       const timeArr = vue.ref([]);
       const refreshflag = vue.ref(true);
       const Pages = getCurrentPages();
-      const page = Pages[Pages.length - 1];
+      const page = Pages[Pages.length - 1].$page;
       const init = async () => {
         await userStore.init(page.fullPath);
         await videoStore.init();
@@ -3432,7 +3446,7 @@ This will fail in production.`);
               (vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList(vue.unref(currentVideos), (video) => {
                 return vue.openBlock(), vue.createElementBlock("view", { class: "video_list_item" }, [
                   video.type == 1 ? (vue.openBlock(), vue.createElementBlock("view", { key: 0 }, [
-                    video.info ? vue.withDirectives((vue.openBlock(), vue.createBlock(CusVideo, {
+                    video.data.vid == videoid.value ? (vue.openBlock(), vue.createBlock(CusVideo, {
                       class: "video",
                       src: video.info.url,
                       controls: true,
@@ -3450,9 +3464,7 @@ This will fail in production.`);
                         }, null, 8, ["data-vid"])
                       ]),
                       _: 2
-                    }, 1032, ["src", "id", "data-vid"])), [
-                      [vue.vShow, video.data.vid == videoid.value]
-                    ]) : vue.createCommentVNode("v-if", true),
+                    }, 1032, ["src", "id", "data-vid"])) : vue.createCommentVNode("v-if", true),
                     vue.createCommentVNode(' <CusVideo v-if="video.data.vid==videoid" class="video" :src="video.info.url" :id="video.data.vid" autoplay="true" :data-vid="video.data.vid" @click="changeVid" bindtap="changeVid"></CusVideo> '),
                     vue.withDirectives(vue.createElementVNode("image", {
                       class: "cover",
@@ -3481,7 +3493,7 @@ This will fail in production.`);
                     ])
                   ])) : vue.createCommentVNode("v-if", true),
                   video.type == 2 ? (vue.openBlock(), vue.createElementBlock("view", { key: 1 }, [
-                    video.info ? vue.withDirectives((vue.openBlock(), vue.createBlock(CusVideo, {
+                    video.data.id == videoid.value ? (vue.openBlock(), vue.createBlock(CusVideo, {
                       class: "video",
                       src: video.info.url,
                       controls: true,
@@ -3499,9 +3511,7 @@ This will fail in production.`);
                         }, null, 8, ["data-vid"])
                       ]),
                       _: 2
-                    }, 1032, ["src", "id", "data-vid"])), [
-                      [vue.vShow, video.data.id == videoid.value]
-                    ]) : vue.createCommentVNode("v-if", true),
+                    }, 1032, ["src", "id", "data-vid"])) : vue.createCommentVNode("v-if", true),
                     vue.createCommentVNode(' <video v-if="video.data.vid==videoid" class="video" :src="video.info.url" :id="video.data.vid" autoplay="true" :data-vid="video.data.vid" @click="changeVid" bindtap="changeVid"></CusVideo> '),
                     vue.withDirectives(vue.createElementVNode("image", {
                       class: "cover",

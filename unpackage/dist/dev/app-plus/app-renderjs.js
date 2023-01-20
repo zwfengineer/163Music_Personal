@@ -35,26 +35,43 @@ __renderjsModules.c52744d6 = (() => {
         video.src = this.option.src;
         video.controls = this.option.controls;
         video.id = this.option.id;
-        video.ontimeupdate = this.timeupdate;
-        video.onended = this.ended;
+        video.addEventListener("timeupdate", this.timeupdate);
+        video.addEventListener("ended", this.ended);
+        video.addEventListener("loadeddata", this.loaded);
+        video.addEventListener("canplaythrough", this.canplaythrough);
+        this.video = video;
         return video;
       },
       init() {
         let container = this.$ownerInstance.$el.querySelector(".videoContainer");
         container.append(this.video());
-        this.setcontext();
       },
       update(nv) {
         this.option = nv;
       },
+      updatectx(nv) {
+        this.status = nv;
+      },
       timeupdate(event) {
+        __f__("log", "at pages/videos/CusVideo.vue:107", event);
         this.$ownerInstance.callMethod("timeupdate", event);
       },
       ended(event) {
+        __f__("log", "at pages/videos/CusVideo.vue:111", event);
         this.$ownerInstance.callMethod("ended", event);
       },
-      setcontext() {
-        this.$ownerInstance.callMethod("setContext");
+      loaded(event) {
+        __f__("log", "at pages/videos/CusVideo.vue:115", "loaded");
+      },
+      canplaythrough(event) {
+        __f__("log", "at pages/videos/CusVideo.vue:125", "canplay");
+        switch (this.status) {
+          case "play":
+            this.video.play();
+            break;
+          default:
+            break;
+        }
       }
     }
   };

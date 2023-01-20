@@ -18,7 +18,7 @@
 				<view class="video_list_item" v-for="video in currentVideos">
 
 					<view v-if="video.type==1">
-						<CusVideo v-show="video.data.vid == videoid" v-if="video.info" class="video" :src="video.info.url"
+						<CusVideo v-if="video.data.vid == videoid"  class="video" :src="video.info.url"
 							:controls="true" :id="video.data.vid" :data-vid="video.data.vid" @timeupdate="TimeUpdate"
 							@ended="VideoEnd" :key="video.data.vid">
 							<cover-view class="cover_video" :data-vid="video.data.vid" @click="changeVid">
@@ -47,7 +47,7 @@
 					</view>
 
 					<view v-if="video.type==2">
-						<CusVideo v-show="video.data.id == videoid" v-if="video.info" class="video" :src="video.info.url"
+						<CusVideo v-if="video.data.id == videoid"  class="video" :src="video.info.url"
 							:controls="true" :id="video.data.id" :data-vid="video.data.id" @timeupdate="TimeUpdate"
 							@ended="VideoEnd" :key="video.data.id">
 							<cover-view class="cover_video" :data-vid="video.data.id" @click="changeVid">
@@ -111,14 +111,14 @@
 	const refreshflag = ref(true)
 	
 	const Pages = getCurrentPages()
-	const page = Pages[Pages.length-1]
+	const page = Pages[Pages.length-1].$page
 	
 	// #ifdef APP
-	let getVideoCtx = (id)=>{
-		let qs = uni.createSelectorQuery()
-		let videolist = qs.select(".video")
-		console.log(videolist)
-	}
+	// let getVideoCtx = (id)=>{
+	// 	let qs = uni.createSelectorQuery()
+	// 	let videolist = qs.select(".video")
+	// 	console.log(videolist)
+	// }
 	// uni.createVideoContext = getVideoCtx
 	// #endif
 	
