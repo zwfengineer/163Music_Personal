@@ -5,7 +5,7 @@
 			@timeupdate="timeupdate" @ended="ended" :key="props.id">
 		</video>
 		<!-- #endif -->
-		<!-- #ifdef APP || APP-PLUS -->
+		<!-- #ifdef APP -->
 		<view class="videoContainer" :prop="option" :ctx="ctx" :change:prop="videoContainer.update"
 			:change:ctx="videoContainer.updatectx"></view>
 		<!-- #endif -->
@@ -15,7 +15,7 @@
 <script setup>
 	import {
 		defineComponent,
-		defineProps,
+		// defineProps,
 		getCurrentInstance,
 		onMounted,
 		ref
@@ -38,7 +38,10 @@
 		}
 	}
 	onMounted(() => {
+		// #ifdef APP
 		context.play()
+		// #endif
+
 	})
 </script>
 <script>
@@ -67,9 +70,7 @@
 	// #endif
 </script>
 <script module="videoContainer" lang="renderjs">
-	// #ifdef APP-PLUS||APP
-
-
+	// #ifdef APP
 	export default {
 		mounted() {
 			this.init()

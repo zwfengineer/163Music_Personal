@@ -18,14 +18,14 @@
 				<view class="video_list_item" v-for="video in currentVideos">
 
 					<view v-if="video.type==1">
-						<CusVideo v-if="video.data.vid == videoid"  class="video" :src="video.info.url"
+						<video v-show="video.data.vid == videoid" v-if="video.info" class="video" :src="video.info.url"
 							:controls="true" :id="video.data.vid" :data-vid="video.data.vid" @timeupdate="TimeUpdate"
 							@ended="VideoEnd" :key="video.data.vid">
 							<cover-view class="cover_video" :data-vid="video.data.vid" @click="changeVid">
 							</cover-view>
-						</CusVideo>
+						</video>
 
-						<!-- <CusVideo v-if="video.data.vid==videoid" class="video" :src="video.info.url" :id="video.data.vid" autoplay="true" :data-vid="video.data.vid" @click="changeVid" bindtap="changeVid"></CusVideo> -->
+						<!-- <video v-if="video.data.vid==videoid" class="video" :src="video.info.url" :id="video.data.vid" autoplay="true" :data-vid="video.data.vid" @click="changeVid" bindtap="changeVid"></video> -->
 						<image v-show="video.data.vid != videoid " class="cover" :src="video.data.coverUrl"
 							:data-vid="video.data.vid" @click="changeVid"></image>
 						<view class="video_info">
@@ -47,14 +47,14 @@
 					</view>
 
 					<view v-if="video.type==2">
-						<CusVideo v-if="video.data.id == videoid"  class="video" :src="video.info.url"
+						<video v-show="video.data.id == videoid"  class="video"  :src="video.info.url"
 							:controls="true" :id="video.data.id" :data-vid="video.data.id" @timeupdate="TimeUpdate"
 							@ended="VideoEnd" :key="video.data.id">
 							<cover-view class="cover_video" :data-vid="video.data.id" @click="changeVid">
 							</cover-view>
-						</CusVideo>
+						</video>
 
-						<!-- <video v-if="video.data.vid==videoid" class="video" :src="video.info.url" :id="video.data.vid" autoplay="true" :data-vid="video.data.vid" @click="changeVid" bindtap="changeVid"></CusVideo> -->
+						<!-- <video v-if="video.data.vid==videoid" class="video" :src="video.info.url" :id="video.data.vid" autoplay="true" :data-vid="video.data.vid" @click="changeVid" bindtap="changeVid"></video> -->
 						<image v-show="video.data.id != videoid " class="cover" :src="video.data.coverUrl"
 							:data-vid="video.data.id" @click="changeVid"></image>
 						<view class="video_info">
@@ -84,6 +84,7 @@
 	import {
 		computed,
 		nextTick,
+		onMounted,
 		reactive,
 		ref
 	} from "vue"
@@ -93,7 +94,7 @@
 	import pinia from "@/store/index.js"
 	import useVideoStore from "@/store/video.js"
 	import useUserStore from "@/store/user.js"
-	import CusVideo from "@/pages/videos/CusVideo.vue"
+	// import CusVideo from "@/pages/videos/CusVideo.vue"
 
 	const videoStore = useVideoStore(pinia)
 	const userStore = useUserStore(pinia)
@@ -101,7 +102,6 @@
 	const {
 		tags
 	} = storeToRefs(videoStore)
-
 
 	const navid = ref()
 	const videoid = ref()
@@ -112,15 +112,6 @@
 	
 	const Pages = getCurrentPages()
 	const page = Pages[Pages.length-1].$page
-	
-	// #ifdef APP
-	// let getVideoCtx = (id)=>{
-	// 	let qs = uni.createSelectorQuery()
-	// 	let videolist = qs.select(".video")
-	// 	console.log(videolist)
-	// }
-	// uni.createVideoContext = getVideoCtx
-	// #endif
 	
 	const init = async () => {
 		await userStore.init(page.fullPath)
@@ -225,7 +216,10 @@
 			return videoStore.videos.get(navid.value)
 		}
 	})
-	init()
+	onMounted(()=>{
+		console.log("videolist mounted")
+		init()
+	})
 </script>
 
 <style lang="less">

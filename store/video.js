@@ -19,6 +19,7 @@ const useVideoStore = defineStore('video', {
 			let result = await request.get("/video/group", {
 				id
 			})
+			console.log(result.datas)
 			result.datas.forEach(async (item) => {
 				if (item.type == 2) {
 					await this.reqGetMVInfo(item.data.id, item)
