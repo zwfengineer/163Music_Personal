@@ -28,11 +28,17 @@ __renderjsModules.c52744d6 = (() => {
     mounted() {
       this.init();
     },
+    data() {
+      return {
+        staus: "",
+        option: ""
+      };
+    },
     methods: {
       video() {
         let video = document.createElement("video");
         video.className = "video";
-        video.src = this.option.src;
+        video.src = this.option.info ? this.option.info.url : "";
         video.controls = this.option.controls;
         video.id = this.option.id;
         video.addEventListener("timeupdate", this.timeupdate);
@@ -51,21 +57,39 @@ __renderjsModules.c52744d6 = (() => {
       },
       updatectx(nv) {
         this.status = nv;
+        if (this.video) {
+          switch (this.status.ctrl) {
+            case "play":
+              this.video.play();
+              break;
+            case "pause":
+              this.video.pause();
+              break;
+            case "stop":
+              this.video.pause();
+              break;
+            case "seek":
+              this.video.seek();
+              break;
+            default:
+              break;
+          }
+        }
+      },
+      updatevinfo(nv) {
+        this.info = nv;
+        this.video.src = this.info.url;
       },
       timeupdate(event) {
-        __f__("log", "at pages/videos/CusVideo.vue:107", event);
         this.$ownerInstance.callMethod("timeupdate", event);
       },
       ended(event) {
-        __f__("log", "at pages/videos/CusVideo.vue:111", event);
         this.$ownerInstance.callMethod("ended", event);
       },
       loaded(event) {
-        __f__("log", "at pages/videos/CusVideo.vue:115", "loaded");
       },
       canplaythrough(event) {
-        __f__("log", "at pages/videos/CusVideo.vue:125", "canplay");
-        switch (this.status) {
+        switch (this.status.ctrl) {
           case "play":
             this.video.play();
             break;

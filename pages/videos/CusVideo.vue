@@ -1,13 +1,13 @@
 <template>
 	<view class="container">
 		<!-- #ifdef H5 -->
-		<video class="video" :src="props.src" :controls="props.controls" :id="props.id" :data-vid="props.id"
+		<video class="video" :src="src" :controls="props.controls" :id="props.id" :data-vid="props.id"
 			@timeupdate="timeupdate" @ended="ended" :key="props.id">
 		</video>
 		<!-- #endif -->
 		<!-- #ifdef APP -->
 		<view class="videoContainer" :prop="option" :ctx="ctx" :change:prop="videoContainer.update"
-			:change:ctx="videoContainer.updatectx"></view>
+			:change:ctx="videoContainer.updatectx" :vinfo="info" :change:vinfo="videoContainer.updatevinfo"></view>
 		<!-- #endif -->
 	</view>
 </template>
@@ -15,31 +15,43 @@
 <script setup>
 	import {
 		defineComponent,
+		computed,
 		// defineProps,
 		getCurrentInstance,
 		onMounted,
 		ref
 	} from "vue"
-	const props = defineProps(['controls', 'id', 'key', 'src'])
+	const props = defineProps(['controls', 'id', 'key', 'info', 'CusContext'])
 	const emit = defineEmits(['timeupdate', 'ended'])
 	const ctx = ref("")
 	const option = props
+	const src = computed(() => {
+		return props.info ? props.info.url : ""
+	})
+	const info = computed(() => {
+		return props.info ? props.info : ""
+	})
 	const context = {
 		id: props.id,
-		src: props.src,
+		src: src.value,
+		type: "ctx",
 		play: () => {
-			ctx.value = 'play'
+			ctx.value = {ctrl:'play'}
 		},
 		pause: () => {
-			ctx.value = 'pause'
+			ctx.value = {ctrl:'pause'}
 		},
 		stop: () => {
-			ctx.value = 'stop'
+			ctx.value = {ctrl:'stop'}
+		},
+		seek:(val)=>{
+			ctx.value = {ctrl:'seek',time:val}
 		}
 	}
 	onMounted(() => {
 		// #ifdef APP
-		context.play()
+		props.CusContext.set(context)
+		
 		// #endif
 
 	})
@@ -49,7 +61,6 @@
 	export default defineComponent({
 		mounted() {
 			this.$props.play = true
-			console.log(this.videoContainer)
 		},
 		methods: {
 			timeupdate(event) {
@@ -58,7 +69,7 @@
 					currentTime: event.timeStamp
 				})
 			},
-			ended(vent) {
+			ended(event) {
 				this.$emit("ended", {
 					vid: event.dataset,
 					currentTime: event.timeStamp
@@ -75,26 +86,29 @@
 		mounted() {
 			this.init()
 		},
+		data() {
+			return {
+				staus: "",
+				option:""
+			}
+		},
 		methods: {
 			video() {
 				let video = document.createElement("video")
 				video.className = "video"
-				video.src = this.option.src
+				video.src = this.option.info ? this.option.info.url : ''
 				video.controls = this.option.controls
 				video.id = this.option.id
 				video.addEventListener("timeupdate", this.timeupdate)
 				video.addEventListener("ended", this.ended)
 				video.addEventListener("loadeddata", this.loaded)
 				video.addEventListener("canplaythrough", this.canplaythrough)
-				// video.ontimeupdate = this.timeupdate
-				// video.onended = this.ended
-				// video.loadeddata = this.loaded
-				// video.canplay = this.canplay
 				this.video = video
 				return video
 			},
 			init() {
 				let container = this.$ownerInstance.$el.querySelector(".videoContainer")
+				// if(this.status.ctrl=='play') this.video.play()
 				container.append(this.video())
 			},
 			update(nv) {
@@ -102,29 +116,40 @@
 			},
 			updatectx(nv) {
 				this.status = nv
-				// console.log(nv)
+				if(this.video){
+					switch (this.status.ctrl){
+						case 'play':
+							this.video.play()
+							break;
+						case 'pause':
+							this.video.pause()
+							break;
+						case 'stop':
+							this.video.pause()
+							break;
+						case 'seek':
+							this.video.seek(this.status.val)
+							break;
+						default:
+							break;
+					}
+				}
+			},
+			updatevinfo(nv) {
+				this.info = nv
+				this.video.src = this.info.url
 			},
 			timeupdate(event) {
-				console.log(event)
 				this.$ownerInstance.callMethod("timeupdate", event)
 			},
 			ended(event) {
-				console.log(event)
 				this.$ownerInstance.callMethod("ended", event)
 			},
 			loaded(event) {
-				console.log("loaded")
-				// switch (this.status){
-				// 	case "play":
-				// 	this.video.play()
-				// 		break;
-				// 	default:
-				// 		break;
-				// }
+				// console.log("loaded")
 			},
 			canplaythrough(event) {
-				console.log("canplay")
-				switch (this.status) {
+				switch (this.status.ctrl) {
 					case "play":
 						this.video.play()
 						break;
@@ -132,10 +157,12 @@
 						break;
 				}
 			}
-		}
+		},
 	}
 	// #endif
 </script>
 <style>
-
+	video {
+		width: 100%
+	}
 </style>

@@ -16,14 +16,13 @@
 			<scroll-view scroll-y="true" class="video_list" refresher-enabled=true :refresher-triggered="refreshflag"
 				@refresherrefresh="refreshvideo" @scrolltolower="downrefresh">
 				<view class="video_list_item" v-for="video in currentVideos">
-
 					<view v-if="video.type==1">
-						<video v-show="video.data.vid == videoid" v-if="video.info" class="video" :src="video.info.url"
-							:controls="true" :id="video.data.vid" :data-vid="video.data.vid" @timeupdate="TimeUpdate"
-							@ended="VideoEnd" :key="video.data.vid">
+						<CusVideo v-show="video.data.vid == videoid" class="video" :info="video.info" :controls="true"
+							:id="video.data.vid" :data-vid="video.data.vid" :CusContext="videoContextList"
+							@timeupdate="TimeUpdate" @ended="VideoEnd" :key="video.data.vid">
 							<cover-view class="cover_video" :data-vid="video.data.vid" @click="changeVid">
 							</cover-view>
-						</video>
+						</CusVideo>
 
 						<!-- <video v-if="video.data.vid==videoid" class="video" :src="video.info.url" :id="video.data.vid" autoplay="true" :data-vid="video.data.vid" @click="changeVid" bindtap="changeVid"></video> -->
 						<image v-show="video.data.vid != videoid " class="cover" :src="video.data.coverUrl"
@@ -47,12 +46,12 @@
 					</view>
 
 					<view v-if="video.type==2">
-						<video v-show="video.data.id == videoid"  class="video"  :src="video.info.url"
-							:controls="true" :id="video.data.id" :data-vid="video.data.id" @timeupdate="TimeUpdate"
-							@ended="VideoEnd" :key="video.data.id">
+						<CusVideo v-show="video.data.id == videoid" class="video" :info="video.info" :controls="true"
+							:id="video.data.id" :data-vid="video.data.id" @timeupdate="TimeUpdate" @ended="VideoEnd"
+							:key="video.data.id" :CusContext="videoContextList">
 							<cover-view class="cover_video" :data-vid="video.data.id" @click="changeVid">
 							</cover-view>
-						</video>
+						</CusVideo>
 
 						<!-- <video v-if="video.data.vid==videoid" class="video" :src="video.info.url" :id="video.data.vid" autoplay="true" :data-vid="video.data.vid" @click="changeVid" bindtap="changeVid"></video> -->
 						<image v-show="video.data.id != videoid " class="cover" :src="video.data.coverUrl"
@@ -83,6 +82,7 @@
 <script setup>
 	import {
 		computed,
+		getCurrentInstance,
 		nextTick,
 		onMounted,
 		reactive,
@@ -94,7 +94,7 @@
 	import pinia from "@/store/index.js"
 	import useVideoStore from "@/store/video.js"
 	import useUserStore from "@/store/user.js"
-	// import CusVideo from "@/pages/videos/CusVideo.vue"
+	import CusVideo from "@/pages/videos/CusVideo.vue"
 
 	const videoStore = useVideoStore(pinia)
 	const userStore = useUserStore(pinia)
@@ -109,10 +109,41 @@
 	const videoArr = ref([])
 	const timeArr = ref([])
 	const refreshflag = ref(true)
-	
+
 	const Pages = getCurrentPages()
-	const page = Pages[Pages.length-1].$page
-	
+	const Page = Pages[0]
+	const page = Pages[Pages.length - 1].$page
+
+	// #ifdef APP
+	let videoctxs = []
+	const videoContextList = {
+		get: (id) => {
+			// console.log(id, videoctxs.length,Date())
+			videoctxs.filter((item) => {
+				// console.log(item.id, id, item.id == id)
+				return item.id == id
+			})
+			return videoctxs.filter(item => item.id == id)[0]
+		},
+		set: (val) => {
+			// if (! videoctxs.find((item)=>item.id == val.id)){
+			// console.log(val, val.type,Date())
+			if (val.type == 'ctx') {
+				videoctxs = videoctxs.filter(item => val.id !== item.id)
+				videoctxs.push(val)
+			}
+			// }
+		}
+	}
+	const getContext = (id) => {
+		// console.log("getContext", videoctxs.length)
+		let ctx = videoContextList.get(id)
+		// console.log("ctx", ctx)
+		return ctx
+	}
+	uni.createVideoContext = getContext
+	// #endif
+
 	const init = async () => {
 		await userStore.init(page.fullPath)
 		await videoStore.init()
@@ -141,8 +172,12 @@
 		let vid = event.currentTarget.dataset.vid
 		if (!videoContext.value) {
 			videoid.value = vid
+			// console.log(uni.createVideoContext(vid))
 			videoContext.value = uni.createVideoContext(vid)
+			// console.log(videoContextList)
 			await nextTick()
+
+			// console.log(videoContext.value)
 			videoContext.value.play()
 
 		} else {
@@ -154,18 +189,20 @@
 				videoid.value = vid
 				videoContext.value.pause()
 				videoContext.value = null
+				// console.log(uni.createVideoContext(vid))
 				videoContext.value = uni.createVideoContext(vid)
 				let record = timeArr.value.find(item => item.vid == vid)
 				if (record) {
 					videoContext.value.seek(record.time)
 				}
 				videoContext.value.play()
+				// console.log(videoContext)
 			}
 		}
 	}
 
 	const titleclick = async () => {
-		console.log("title click")
+		// console.log("title click")
 		videoContext.value.pause()
 	}
 
@@ -173,11 +210,12 @@
 
 	}
 	const VideoEnd = (event) => {
-		console.log(event)
+		// console.log(event)
 		let vid = event.vid
 		let record = timeArr.value.find(item => item.vid == vid)
 		videoContext.value.seek(0)
 		videoContext.value.play()
+		// console.log(videoContext)
 		// timeArr.value.splice(timeArr.value.indexOf(record), 1)
 	}
 	const TimeUpdate = (event) => {
@@ -195,7 +233,7 @@
 	}
 
 	const refreshvideo = async () => {
-		console.log("refreshvideo")
+		// console.log("refreshvideo")
 		refreshflag.value = true
 		videoid.value = null
 		if (videoContext.value) {
@@ -216,8 +254,8 @@
 			return videoStore.videos.get(navid.value)
 		}
 	})
-	onMounted(()=>{
-		console.log("videolist mounted")
+	onMounted(() => {
+		// console.log("videolist mounted")
 		init()
 	})
 </script>
