@@ -69,7 +69,7 @@ __renderjsModules.c52744d6 = (() => {
               this.video.pause();
               break;
             case "seek":
-              this.video.seek();
+              this.video.seek(this.status.val);
               break;
             default:
               break;
